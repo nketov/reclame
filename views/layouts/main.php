@@ -40,9 +40,15 @@ AppAsset::register($this);
             ['label' => 'Главная', 'url' => ['/post']],
             ['label' => 'О блоге', 'url' => ['/about']],
             ['label' => 'Контакты', 'url' => ['/contact']],
+
+            Yii::$app->user->isGuest ? ('<li></li>') :
+            ['label' => 'Внести данные', 'url' => ['/about']],
+
+
             Yii::$app->user->isGuest ? (
             ['label' => "Вход", 'url' => ['/login']]
-            ) : (
+            ) :
+                (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
                 . Html::submitButton(
@@ -52,20 +58,6 @@ AppAsset::register($this);
                 . Html::endForm()
                 . '</li>'
             ),
-            Yii::$app->user->getIdentity()->username === 'admin' ? (
-
-                '<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa-lg"></i> <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li>' . Html::a('Пользователи', '/admin/user.html') . '</li>
-            <li>' . Html::a('Посты', '/admin/post.html') . '</li>
-            <li>' . Html::a('Комментарии', '/admin/comment.html') . '</li>
-            <li>' . Html::a('Теги', '/admin/tag.html') . '</li>
-            <li>' . Html::a('Справочник', '/admin/lookup.html') . '</li>
-            
-          </ul>
-        </li>'
-            ) : ('<li></li>')
         ],
 
     ]);
