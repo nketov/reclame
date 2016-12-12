@@ -51,17 +51,14 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => false,
-            'suffix' => '.html',
+//            'suffix' => '.html',
             'rules' => [
                 [
                     'pattern' => '',
-                    'route' => '/post',
+                    'route' => '/date/index',
                     'suffix' => ''
                 ],
-                'post/<id:\d+>/<title:.*?>' => 'post/view',
-                'posts/<tag:.*?>' => 'post/index',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-                '<action:(about|contact|login)>' => 'site/<action>'
+
             ],
         ],
 

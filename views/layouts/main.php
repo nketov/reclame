@@ -37,12 +37,13 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Главная', 'url' => ['/post']],
-            ['label' => 'О блоге', 'url' => ['/about']],
-            ['label' => 'Контакты', 'url' => ['/contact']],
+            ['label' => 'Главная', 'url' => ['/date']],
+            
+//            ['label' => 'О блоге', 'url' => ['/about']],
+//            ['label' => 'Контакты', 'url' => ['/contact']],
 
             Yii::$app->user->isGuest ? ('<li></li>') :
-            ['label' => 'Внести данные', 'url' => ['/about']],
+            ['label' => 'Внести данные', 'url' => ['/date/create']],
 
 
             Yii::$app->user->isGuest ? (
@@ -69,27 +70,27 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
 
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-9">
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!---->
+                <div class="col-lg-12">
                     <?= $content ?>
                 </div>
-
-                <div class="col-lg-3">
-                    <?
-                    echo ControlPanelWidget::widget() ?>
-                </div>
-
-            </div>
-        </div>
+<!---->
+<!--                <div class="col-lg-3">-->
+<!--                    --><?//
+//                    echo ControlPanelWidget::widget() ?>
+<!--                </div>-->
+<!---->
+<!--            </div>-->
+<!--        </div>-->
 
     </div>
 </div>
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left"> Краматорск <img src="/images/ukraine.png"> <?= date('Y') ?></p>
+<!--        <p class="pull-left"> Краматорск <img src="/images/ukraine.png"> --><?//= date('Y') ?><!--</p>-->
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
