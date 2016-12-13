@@ -38,10 +38,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #AE8;
 }
 
-.navbar-brand {
-    position: relative;
-    top: -12px;
-}
+
 
 .navbar-inverse, .dropdown-menu, .pagination li:not(.active) *, .panel-heading {
     background: linear-gradient(to bottom, #222 25%, #000 100%);
@@ -258,6 +255,17 @@ table th {
     border: solid 2px #222;
     background: rgba(1, 1, 1, 0.25);
 }
+
+.panel.direct{
+     background: rgba(255, 200, 1, 0.5);
+    height: 450px;
+ }
+
+.panel.adwords{
+    background: rgba(1, 255, 1, 0.5);
+    height: 450px;
+}
+
 
 .panel-heading {
     border: none;

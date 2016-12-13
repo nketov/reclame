@@ -51,14 +51,14 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => false,
-//            'suffix' => '.html',
+            'suffix' => '.html',
             'rules' => [
                 [
                     'pattern' => '',
                     'route' => '/date/index',
                     'suffix' => ''
                 ],
-
+                '<action:(about|contact|login)>' => 'site/<action>'
             ],
         ],
 

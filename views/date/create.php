@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Date */
 
-$this->title = 'Create Date';
-$this->params['breadcrumbs'][] = ['label' => 'Dates', 'url' => ['index']];
+$this->title = 'Внести данные';
+$this->params['breadcrumbs'][] = ['label' => 'Данные', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="date-create">

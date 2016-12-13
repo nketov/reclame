@@ -48,12 +48,12 @@ class Date extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'date' => 'Дата',
-            'direct_rate' => 'Расход  ( Директ, руб.)',
-            'direct_click' => 'Клики  ( Директ)',
-            'direct_order' => 'Заявки  ( Директ)',
-            'adwords_rate' => 'Расход  (Adwords, руб. )',
-            'adwords_click' => 'Клики  (Adwords)',
-            'adwords_order' => 'Заявки  (Adwords)'
+            'direct_rate' => 'Расход  ( руб.)',
+            'direct_click' => 'Клики',
+            'direct_order' => 'Заявки',
+            'adwords_rate' => 'Расход  ( руб. )',
+            'adwords_click' => 'Клики',
+            'adwords_order' => 'Заявки'
         ];
     }
 }

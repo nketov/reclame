@@ -28,7 +28,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => "<img src='/images/logo.png'>",
+        'brandLabel' => "Показатели рекламы",
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -38,13 +38,10 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Главная', 'url' => ['/date']],
-            
 //            ['label' => 'О блоге', 'url' => ['/about']],
 //            ['label' => 'Контакты', 'url' => ['/contact']],
-
             Yii::$app->user->isGuest ? ('<li></li>') :
             ['label' => 'Внести данные', 'url' => ['/date/create']],
-
 
             Yii::$app->user->isGuest ? (
             ['label' => "Вход", 'url' => ['/login']]
