@@ -257,13 +257,13 @@ table th {
 }
 
 .panel.direct{
-     background: rgba(255, 200, 1, 0.5);
-    height: 450px;
+     background: rgba(255, 200, 1, 0.33);
+    height: 375px;
  }
 
 .panel.adwords{
-    background: rgba(1, 255, 1, 0.5);
-    height: 450px;
+    background: rgba(1, 255, 1, 0.33);
+    height: 375px;
 }
 
 
@@ -288,4 +288,8 @@ table th {
 .panel-body ul {
     font-size: 12px;
     padding: 5px;
+}
+
+.date-form  .help-block{
+    font-size: 10px;
 }
