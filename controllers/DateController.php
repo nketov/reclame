@@ -24,6 +24,8 @@ class DateController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'confirm' => ['POST','GET'],
+
                 ],
             ],
         ];
@@ -66,7 +68,7 @@ class DateController extends Controller
         $model = new Date();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -105,6 +107,27 @@ class DateController extends Controller
 
         return $this->redirect(['index']);
     }
+
+
+    public function actionConfirm()
+    {
+
+        if (Yii::$app->request->isPost) {
+            if (!isset($_POST['ajax']))
+                $date = date('Y-m-d', strtotime($_GET['date']));
+            $model=Date::find() ->where(["date" => $date])->one();
+
+            if(!$model){
+                return false;
+            }
+
+            return $_GET['date'];
+
+
+        } else
+            throw new HttpException(400, 'Ошибочный запрос. Пожайлуйста, не повторяйте его снова.');
+    }
+
 
     /**
      * Finds the Date model based on its primary key value.

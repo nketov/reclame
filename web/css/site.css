@@ -254,6 +254,7 @@ table th {
     border-radius: 16px;
     border: solid 2px #222;
     background: rgba(1, 1, 1, 0.25);
+    overflow: hidden;
 }
 
 .panel.direct{
@@ -262,8 +263,19 @@ table th {
  }
 
 .panel.adwords{
-    background: rgba(1, 255, 1, 0.33);
+     background: rgba(1, 255, 1, 0.33);
+     height: 375px;
+ }
+
+.panel.date{
     height: 375px;
+    background: rgba(1, 1, 1, 0.33);
+}
+
+.panel .form-control{
+    width: 75%;
+    margin: auto;
+    text-align: center;
 }
 
 
@@ -291,5 +303,6 @@ table th {
 }
 
 .date-form  .help-block{
-    font-size: 10px;
+    font-size: 8px;
+    text-align: center;
 }
