@@ -37,12 +37,10 @@ class DateController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new DateSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dates = Date::find()->orderBy('date')->all();
+        
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dates' => $dates            
         ]);
     }
 

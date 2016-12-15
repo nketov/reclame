@@ -37,9 +37,8 @@ $JS = <<< JS
         $(this).val(val.replace(/,/g, '.'));
     });
     
- $('.date-form').on('click','button.save',function(event) {
-  
-  
+ $('.date-form').on('submit',function(event) {
+
     var date = $(".datepicker").val();  
  
       $.ajax({
@@ -50,12 +49,13 @@ $JS = <<< JS
 
         if (result){   	 
  	  	        if (!confirm('Запись за '+result+ ' существует, заменить её новыми данными?'))
- 	  	    {
- 	  	      event.preventDefault();
+ 	  	    { 	  	      
+ 	  	     event.preventDefault();
  	  	      return false; 
- 	  	  } 	  	  
+ 	  	  }  	  	  	  	  
  	  	  return true;
  	 } 	 
+ 	return true;
 });
          
          
