@@ -2,37 +2,8 @@
 
 $JS = <<< JS
 
-    $(".digital-input").keypress(function(key) {
-        if(key.charCode < 48 || key.charCode > 57) return false;
-    });
 
-    $(".float-digital").keypress(function(key) {
-
-        var regex = new RegExp("^[0-9.,]+$");
-        var str = String.fromCharCode(!key.charCode ? key.which : key.charCode);console.log(str);
-
-        var val=$(this).val();
-        if ((val.indexOf(".") >= 0) && (str=='.' || str==',')){
-            return false;
-        }
-
-        if (val.indexOf(".") >= 0){
-            var parts = val.split('.');
-            if(parts[1].length>1){
-                return false;
-            }
-        }
-
-        if (regex.test(str)) {
-            return true;
-        }
-
-        key.preventDefault();
-        return false;
-    });
-
-
-    $(".float-digital").keyup(function() {        
+    $(".float").keyup(function() {        
         var val=$(this).val();
         $(this).val(val.replace(/,/g, '.'));
     });
@@ -103,10 +74,19 @@ use yii\widgets\ActiveForm;
                 <br>
                 <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::classname(), [
                     'options' => ['class' => 'form-control datepicker',
-                        'style' => "margin-top:50px;"
+                        'style' => "margin-top:50px;",
+                        'readonly' => 'readonly'
+                    ],
+                    'clientOptions' =>[
+//                        'changeMonth'=>true,
+//                        'changeYear'=>true,
+                        'showAnim' => 'fold',
+                        'minDate' => '01.09.2016',
+                        'maxDate' => date('d.m.Y', strtotime('+1 month')),
                     ],
                     'language' => 'ru',
-                    'dateFormat' => 'dd/MM/yyyy'
+                    'dateFormat' => 'dd.MM.yyyy',
+                    'value'=>date('Y-m-d'),
                 ]) ?>
             </div>
         </div>
@@ -115,7 +95,7 @@ use yii\widgets\ActiveForm;
             <div class="panel direct">
                 <div class="panel-heading">Директ</div>
                 <div class="panel-body">
-                    <?= $form->field($model, 'direct_rate')->textInput(['maxlength' => true, 'class' => 'float-digital form-control']) ?>
+                    <?= $form->field($model, 'direct_rate')->textInput(['maxlength' => true, 'class' => 'float  form-control']) ?>
                     <?= $form->field($model, 'direct_click')->textInput(['class' => 'digital-input form-control']) ?>
                     <?= $form->field($model, 'direct_order')->textInput(['class' => 'digital-input form-control']) ?>
                 </div>
@@ -126,7 +106,7 @@ use yii\widgets\ActiveForm;
             <div class="panel adwords">
                 <div class="panel-heading">AdWords</div>
                 <div class="panel-body">
-                    <?= $form->field($model, 'adwords_rate')->textInput(['maxlength' => true, 'class' => 'float-digital form-control']) ?>
+                    <?= $form->field($model, 'adwords_rate')->textInput(['maxlength' => true, 'class' => 'float form-control']) ?>
                     <?= $form->field($model, 'adwords_click')->textInput(['class' => 'digital-input form-control']) ?>
                     <?= $form->field($model, 'adwords_order')->textInput(['class' => 'digital-input form-control']) ?>
                 </div>

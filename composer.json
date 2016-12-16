@@ -20,10 +20,10 @@
         "yiisoft/yii2-swiftmailer": "*",
         "raveren/kint": "^1.0",
         "yiisoft/yii2-jui": "^2.0",
-        "components/font-awesome": "^4.6"
+        "components/font-awesome": "^4.6",
+	"miloschuman/yii2-highcharts-widget": "dev-master"
     },
-    "require-dev": {
-        "yiisoft/yii2-codeception": "*",
+    "require-dev": {        
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "^2.0",
         "yiisoft/yii2-faker": "*"

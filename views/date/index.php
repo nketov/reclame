@@ -16,10 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-    <table class="table table-bordered  center mrg20T mrg20B">
+    <table class="table date-table">
         <thead>
         <tr>
-            <td rowspan="2">Дата</td>
+            <td rowspan="2"  class = "date">Дата</td>
             <td colspan="3" class = "direct">Директ</td>
             <td colspan="3" class = "adwords">Adwords</td>
         </tr>
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
         foreach ($dates as $date) {
             ?>
             <tr>
-                <td><?php echo date('d/m/Y', strtotime($date->date)) ?></td>
+                <td class = "date"><?php echo date('d.m.Y', strtotime($date->date)) ?></td>
                 <td  class = "direct"><?php echo $date->direct_rate ?></td>
                 <td  class = "direct"><?php echo $date->direct_click ?></td>
                 <td  class = "direct"><?php echo $date->direct_order ?></td>
