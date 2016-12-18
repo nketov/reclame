@@ -16,12 +16,14 @@
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": ">=2.0.5",
-        "yiisoft/yii2-bootstrap": "*",
+        "yiisoft/yii2-bootstrap": "*",    
         "yiisoft/yii2-swiftmailer": "*",
         "raveren/kint": "^1.0",
         "yiisoft/yii2-jui": "^2.0",
         "components/font-awesome": "^4.6",
-	"miloschuman/yii2-highcharts-widget": "dev-master"
+	   "miloschuman/yii2-highcharts-widget": "dev-master",
+        "kartik-v/yii2-krajee-base": "dev-master",       
+        "kartik-v/yii2-widget-growl": "*"        
     },
     "require-dev": {        
         "yiisoft/yii2-debug": "*",

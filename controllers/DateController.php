@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Result;
 use Yii;
 use app\models\Date;
 use app\models\DateSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,13 +15,34 @@ use yii\filters\VerbFilter;
  * DateController implements the CRUD actions for Date model.
  */
 class DateController extends Controller
+
 {
+
     /**
      * @inheritdoc
      */
     public function behaviors()
     {
+
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,11 +59,12 @@ class DateController extends Controller
      * @return mixed
      */
     public function actionIndex()
+
     {
-        $dates = Date::find()->orderBy('date')->all();
-        
+
+        $dates = Date::find()->orderBy('date')->all();        
         return $this->render('index', [
-            'dates' => $dates            
+            'dates' => $dates,
         ]);
     }
 
@@ -63,13 +87,22 @@ class DateController extends Controller
      */
     public function actionCreate()
     {
+
         $model = new Date();
+        $model->date=date("Y-m-d");
+
+        $dates = Date::find()->orderBy('date')->all();
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+                                
+            Yii::$app->session->setFlash('save', 'Дaнные '. date('d.m.Y', strtotime($model->date)).' сохранены'  );
+            
+            return $this->redirect(array('create'));
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'dates' => $dates,
             ]);
         }
     }
@@ -122,8 +155,9 @@ class DateController extends Controller
             return $_GET['date'];
 
 
-        } else
-            throw new HttpException(400, 'Ошибочный запрос. Пожайлуйста, не повторяйте его снова.');
+        }
+//        else
+//            throw new HttpException(400, 'Ошибочный запрос. Пожайлуйста, не повторяйте его снова.');
     }
 
 

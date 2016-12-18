@@ -2,24 +2,39 @@
 
 $JS = <<< JS
 
+$(".date-create").on("click",".clear",function(event) {
+
+        $(".modal").find(".errorMessage").css("display", "none");     
+         $(".panel-body input").val("");
+         
+});
+
+
 
     $(".float").keyup(function() {        
         var val=$(this).val();
         $(this).val(val.replace(/,/g, '.'));
     });
     
+$(window).keydown(function(event) {
+   if (event.which == 13) {
+      sendForm()
+   }
+});
+    
+    
  $('.date-form').on('submit',function(event) {
 
     var date = $(".datepicker").val();  
- 
+     
       $.ajax({
         type:'post',
         url: 'confirm.html?date='+date,
         async :false       
         }).done(function(result) {
 
-        if (result){   	 
- 	  	        if (!confirm('Запись за '+result+ ' существует, заменить её новыми данными?'))
+        if (result){  	 
+         	  	        if (!confirm('Запись за '+result+ ' существует, заменить её новыми данными?'))
  	  	    { 	  	      
  	  	     event.preventDefault();
  	  	      return false; 
@@ -29,20 +44,8 @@ $JS = <<< JS
  	return true;
 });
          
-         
- 
-	
- 
- 
- 
-	// var th=$(this),
-	// 	container=th.closest('div.comment'),
-	// 	id=container.attr('id').slice(1);
-	//	
-	// if (confirm('Вы действительно хотите удалить комментарий  #'+id+'?')) {	
-	// 	$.post(th.attr('href'),function(){container.slideUp()})		
-	// 	}				
-	// return false;
+
+
 });
 
 JS;
@@ -59,16 +62,17 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="date-form">
+    <?= Html::csrfMetaTags() ?>
+    <?php $form = ActiveForm::begin([
+            'id'=>'target-form'
 
-    <?php $form = ActiveForm::begin(); ?>
-    <hr>
+        ]
+    ); ?>
 
     <div class="row">
 
-        <div class="col-lg-1">
-        </div>
 
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="panel date">
                 <div class="panel-heading">Дата</div>
                 <br>
@@ -82,7 +86,7 @@ use yii\widgets\ActiveForm;
 //                        'changeYear'=>true,
                         'showAnim' => 'fold',
                         'minDate' => '01.09.2016',
-                        'maxDate' => date('d.m.Y', strtotime('+1 month')),
+                        'maxDate' => date('d.m.Y', strtotime('+1 day')),
                     ],
                     'language' => 'ru',
                     'dateFormat' => 'dd.MM.yyyy',
@@ -91,33 +95,34 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
 
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="panel direct">
                 <div class="panel-heading">Директ</div>
                 <div class="panel-body">
-                    <?= $form->field($model, 'direct_rate')->textInput(['maxlength' => true, 'class' => 'float  form-control']) ?>
-                    <?= $form->field($model, 'direct_click')->textInput(['class' => 'digital-input form-control']) ?>
-                    <?= $form->field($model, 'direct_order')->textInput(['class' => 'digital-input form-control']) ?>
+                    <?= $form->field($model, 'direct_rate')->textInput(['maxlength' => true, 'class' => 'float  form-control','autocomplete'=> 'off']) ?>
+                    <?= $form->field($model, 'direct_click')->textInput(['class' => 'digital-input form-control','autocomplete'=> 'off']) ?>
+                    <?= $form->field($model, 'direct_order')->textInput(['class' => 'digital-input form-control','autocomplete'=> 'off']) ?>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="panel adwords">
                 <div class="panel-heading">AdWords</div>
                 <div class="panel-body">
-                    <?= $form->field($model, 'adwords_rate')->textInput(['maxlength' => true, 'class' => 'float form-control']) ?>
-                    <?= $form->field($model, 'adwords_click')->textInput(['class' => 'digital-input form-control']) ?>
-                    <?= $form->field($model, 'adwords_order')->textInput(['class' => 'digital-input form-control']) ?>
+                    <?= $form->field($model, 'adwords_rate')->textInput(['maxlength' => true, 'class' => 'float form-control','autocomplete'=> 'off']) ?>
+                    <?= $form->field($model, 'adwords_click')->textInput(['class' => 'digital-input form-control','autocomplete'=> 'off']) ?>
+                    <?= $form->field($model, 'adwords_order')->textInput(['class' => 'digital-input form-control','autocomplete'=> 'off']) ?>
+
                 </div>
             </div>
         </div>
     </div>
 
-    <hr>
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Внести данные' : 'Изменить данные', ['class' => ' save btn btn-primary btn btn-lg center-block']) ?>
-    </div>
+
+<!--    <div class="form-group">-->
+<!--        --><?//= Html::submitButton($model->isNewRecord ? 'Внести данные' : 'Изменить данные', ['class' => ' save btn btn-primary btn btn-lg center-block']) ?>
+    <!--    </div>-->
 
     <?php ActiveForm::end(); ?>
 

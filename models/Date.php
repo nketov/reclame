@@ -33,7 +33,7 @@ class Date extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'direct_rate', 'direct_click', 'direct_order', 'adwords_rate', 'adwords_click', 'adwords_order'], 'required', 'message' =>'Необходимо заполнить поле'],
+            [['date', 'direct_rate', 'direct_click', 'direct_order', 'adwords_rate', 'adwords_click', 'adwords_order'], 'required', 'message' =>''],
             [['date'], 'safe'],
             [['direct_rate', 'adwords_rate'], 'number'],
             [['direct_click', 'direct_order', 'adwords_click', 'adwords_order'], 'integer'],
@@ -49,16 +49,16 @@ class Date extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'date' => '',
-            'direct_rate' => 'Расход  ( руб.)',
+            'direct_rate' => 'Расход  (руб.)',
             'direct_click' => 'Клики',
             'direct_order' => 'Заявки',
-            'adwords_rate' => 'Расход  ( руб. )',
+            'adwords_rate' => 'Расход  (руб.)',
             'adwords_click' => 'Клики',
             'adwords_order' => 'Заявки'
         ];
     }
 
-    public function beforeSave()
+    public function beforeSave($options=array())
     {
 
         $this->date = date('Y-m-d', strtotime($this->date));
@@ -68,10 +68,9 @@ class Date extends \yii\db\ActiveRecord
         if($model){
             $this->id =$model->id;
             $model->delete();
-        } 
+        }
 
-               
-       
+             
         
         return true;
     }

@@ -231,22 +231,28 @@ a:active, .panel-body .btn:active {
     font-size: 22px;
 }
 
+
+
+
 .date-table, .date-table  * {
     text-align: center;
     border-collapse: inherit;
-    /*table-layout: fixed;*/
     border: solid 1px #333 !important;
 }
 
-/*tbody tr:nth-child(2n+1) {*/
-    /*background-color: rgba(1, 1, 1, 0.35) !important;*/
-/*}*/
 
-/*table th {*/
-    /*background-color: rgba(1, 1, 1, 0.65) !important;*/
-    /*border-radius: 20px;*/
-    /*text-align: center;*/
-/*}*/
+
+
+.date-table tbody tr:nth-child(2n+1) {
+    background-color: rgba(1, 1, 1, 0.50) !important;
+}
+
+.date-table thead td {
+font-weight: bold;
+    font-size: 16px;
+    color: #000;
+
+}
 
 .action-column {
     display: none;
@@ -261,12 +267,12 @@ a:active, .panel-body .btn:active {
 }
 
 .panel.direct{
-     background: rgba(255, 200, 1, 0.33);
+    background: rgba(255,217,102,0.5);
     height: 375px;
  }
 
 .panel.adwords{
-     background: rgba(1, 255, 1, 0.33);
+    background: rgba(12,255,120, 0.5);
      height: 375px;
  }
 
@@ -312,17 +318,42 @@ a:active, .panel-body .btn:active {
 
 
 table .direct{
-    background: rgba(255, 200, 1, 0.5);
+    background: rgba(255,217,102,0.75);
     color: #FFF;
 }
 
 table .adwords{
-    background: rgba(1, 255, 1, 0.5);
+    background: rgba(12,255,120, 0.75);
     color: #FFF;
 }
 
+table .total{
+    background: rgba(255, 255, 255, 0.65);
+    color: #000;
+}
+
+table .header{
+    background: rgba(255, 255, 255, 1);
+    color: #044 !important;
+}
+
+
+
+
 table .date{
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.75);
     color: #000;
     font-size: 16px;
+    text-shadow: none;
 }
+
+.modal-content {
+    background-color: #111;
+
+    padding: 20px;
+    border-radius: 25px;
+    border: solid 5px #222;
+    background: url("/images/gw.png");
+    overflow: hidden;
+}
+
