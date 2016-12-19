@@ -68,9 +68,7 @@ class Date extends \yii\db\ActiveRecord
         if($model){
             $this->id =$model->id;
             $model->delete();
-        }
-
-             
+        }             
         
         return true;
     }

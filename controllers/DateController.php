@@ -62,9 +62,14 @@ class DateController extends Controller
 
     {
 
-        $dates = Date::find()->orderBy('date')->all();        
-        return $this->render('index', [
-            'dates' => $dates,
+        $months=$this->getMonths();
+
+        $month=$_POST['month']? $_POST['month'] : end(array_keys($months));
+
+            
+        return $this->render('index', [           
+            'months' => $months,
+            'month' => $month,
         ]);
     }
 
@@ -175,5 +180,38 @@ class DateController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    private function getMonth($day)
+
+    {
+        $first = mktime(0, 0, 0, date('m',$day), 1, date("Y",$day));
+        $last = mktime(0, 0, 0, date('m',$day)+1, 0, date("Y",$day));
+
+        while ($first<=$last)
+        {
+            $m[]= date('Y-m-d',$first);
+            $first+=86400;
+        }
+
+        return $m;
+
+    }
+
+    private function getMonths()
+    {
+        $month_array = array("01"=>"Январь","02"=>"Февраль","03"=>"Март","04"=>"Апрель","05"=>"Май", "06"=>"Июнь", "07"=>"Июль","08"=>"Август","09"=>"Сентябрь","10"=>"Октябрь","11"=>"Ноябрь","12"=>"Декабрь");
+        $now=mktime(0,0,0,date('m'), date("d"), date("Y"));
+        $start=mktime(0, 0, 0, 9, 1, 2016);
+        $months['Весь период'] =[];
+        while($start < $now){
+           $name = $month_array[date('m',$start)]." ".date('Y',$start);
+            $months[$name]= $this->getMonth($start);
+            $months['Весь период'] = array_merge($months['Весь период'],$this->getMonth($start));
+            $start=mktime(0, 0, 0, date('m',$start)+1, 1, date("Y",$start));
+        }
+
+        return $months;
+
     }
 }
