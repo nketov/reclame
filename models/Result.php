@@ -60,7 +60,7 @@ class Result extends Model
         ];
     }
 
-    public function resolveDate(Model $dateModel)
+    public function resolveDate( $dateModel)
     {
 
         $this->id=$dateModel->id;

@@ -41,21 +41,21 @@ AppAsset::register($this);
 //            ['label' => 'О блоге', 'url' => ['/about']],
 //            ['label' => 'Контакты', 'url' => ['/contact']],
             Yii::$app->user->isGuest ? ('<li></li>') :
-            ['label' => 'Внести данные', 'url' => ['/date/create']],
+                ['label' => 'Внести данные', 'url' => ['/date/create']],
 
             Yii::$app->user->isGuest ? (
             ['label' => "Вход", 'url' => ['/login']]
             ) :
                 (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
-                . Html::submitButton(
-                    'Выход  <i class="fa fa-user"></i>  (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'user']
-                )
-                . Html::endForm()
-                . '</li>'
-            ),
+                    '<li>'
+                    . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
+                    . Html::submitButton(
+                        'Выход  <i class="fa fa-user"></i>  (' . Yii::$app->user->identity->username . ')',
+                        ['class' => 'user']
+                    )
+                    . Html::endForm()
+                    . '</li>'
+                ),
         ],
 
     ]);
@@ -67,27 +67,14 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
 
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!---->
-                <div class="col-lg-12">
-                    <?= $content ?>
-                </div>
-<!---->
-<!--                <div class="col-lg-3">-->
-<!--                    --><?//
-//                    echo ControlPanelWidget::widget() ?>
-<!--                </div>-->
-<!---->
-<!--            </div>-->
-<!--        </div>-->
+        <?= $content ?>
 
     </div>
 </div>
 
 <footer class="footer">
     <div class="container">
-<!--        <p class="pull-left"> Краматорск <img src="/images/ukraine.png"> --><?//= date('Y') ?><!--</p>-->
+        <!--        <p class="pull-left"> Краматорск <img src="/images/ukraine.png"> --><? //= date('Y') ?><!--</p>-->
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
