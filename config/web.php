@@ -3,7 +3,7 @@
 $params = require(__DIR__ . '/params.php');
 
 $config = [
-    'id' => 'yii2blog',
+    'id' => 'reclame',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'modules' => [
@@ -58,6 +58,7 @@ $config = [
                     'route' => '/date/index',
                     'suffix' => ''
                 ],
+                '<action:(charts)>' => 'date/<action>',
                 '<action:(about|contact|login)>' => 'site/<action>'
             ],
         ],

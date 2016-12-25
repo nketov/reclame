@@ -19,13 +19,22 @@ class MonthResult extends Model
     public $amount;
 
     public $sum_conversion;
+
+    public $sum_adwords_rate;
+    public $sum_direct_rate;
+
     public $average_rate;
     public $average_order;
     public $average_CPL;
+    public $average_click;
+    
+    public $average_direct_CPL;
+    public $average_adwords_CPL;
 
 
 
-
+    
+    
 
 
 }

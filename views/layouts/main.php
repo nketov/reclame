@@ -3,7 +3,6 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use app\components\ControlPanelWidget;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -38,8 +37,10 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
 //            ['label' => 'Общие показатели', 'url' => ['/date']],
-//            ['label' => 'О блоге', 'url' => ['/about']],
+//            ['label' => 'О сайте', 'url' => ['/about']],
 //            ['label' => 'Контакты', 'url' => ['/contact']],
+
+            ['label' => 'Графики', 'url' => ['/charts']],
             Yii::$app->user->isGuest ? ('<li></li>') :
                 ['label' => 'Внести данные', 'url' => ['/date/create']],
 
@@ -74,8 +75,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <!--        <p class="pull-left"> Краматорск <img src="/images/ukraine.png"> --><? //= date('Y') ?><!--</p>-->
-
+<!--                <p class="pull-left"> Краматорск <img src="/images/ukraine.png"> --><?// //= date('Y') ?><!--</p>-->
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>

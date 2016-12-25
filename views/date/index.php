@@ -2,6 +2,7 @@
 
 use app\models\Date;
 use app\models\Result;
+use miloschuman\highcharts\Highcharts;
 use yii\bootstrap\Alert;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -101,35 +102,71 @@ Html::endForm() ?>
             <tbody>
             <tr>
                 <td class="mini-1">Средний CPL</td>
-                <td class="mini-1">11 ₽</td>
+                <td class="mini-1"><?php echo number_format($monthResult->sum_CPL, 2) ?> ₽</td>
             <tr>
             <tr>
                 <td class="mini-2">Средняя конверсия</td>
-                <td class="mini-2">11</td>
+                <td class="mini-2"><?php echo number_format($monthResult->sum_conversion * 100, 2) ?> %</td>
             <tr>
             <tr>
                 <td class="mini-3">CPL в Директе</td>
-                <td class="mini-3">11 ₽</td>
+                <td class="mini-3"><?php echo $monthResult->average_direct_CPL ?> ₽</td>
             <tr>
             <tr>
                 <td class="mini-4">CPL в Adwords</td>
-                <td class="mini-4">11 ₽</td>
+                <td class="mini-4"><?php echo $monthResult->average_adwords_CPL ?> ₽</td>
             <tr>
             <tr>
                 <td class="mini-5">К-во кликов в день</td>
-                <td class="mini-5">11</td>
+                <td class="mini-5"><?php echo number_format($monthResult->average_click, 0) ?></td>
             <tr>
             <tr>
                 <td class="mini-6">К-во лидов в день</td>
-                <td class="mini-6">11</td>
+                <td class="mini-6"><?php echo number_format($monthResult->average_order, 0) ?></td>
             <tr>
             <tr>
                 <td class="mini-7">Расход в день</td>
-                <td class="mini-7">11 ₽</td>
+                <td class="mini-7"><?php echo $monthResult->average_rate ?> ₽</td>
             <tr>
 
             </tbody>
         </table>
+
+        <?php echo Highcharts::widget([
+            'scripts' => [
+                'modules/exporting',
+            ],
+            'options' => [
+                'title' => [
+                    'text' => 'Расход за '.$periodName,
+                ],
+                'series' => [
+                    [
+                        'type' => 'pie',
+                        'name' => 'Расход за период',
+                        'data' => [
+                            [
+                                'name' => "AdWords расход",
+                                'y' => (float)$monthResult->sum_adwords_rate,
+                                'color' => 'rgba(12,255,120, 1)'
+                            ],
+                            [
+                                'name' => "Директ расход",
+                                'y' => (float)$monthResult->sum_direct_rate,
+                                'color' => ' rgba(255,217,102,1)'
+                            ],
+                        ],
+                        'center' => [100, 100],
+                        'size' => 225,
+                        'showInLegend' => false,
+                        'dataLabels' => [
+                            'enabled' => false,
+                        ],
+                    ],
+                ]
+            ]
+        ])
+        ?>
 
 
     </div>

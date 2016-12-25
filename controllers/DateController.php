@@ -31,7 +31,7 @@ class DateController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index'],
+                        'actions' => ['index','charts'],
                         'roles' => ['?'],
                     ],
                     [
@@ -76,6 +76,34 @@ class DateController extends Controller
         ]);
     }
 
+
+
+
+    public function actionCharts()
+
+    {
+
+        $months=$this->getMonths();
+
+        $month=$_POST['month']? $_POST['month'] : end(array_keys($months));
+        $monthResult=$this->getMonthResult($month);
+
+
+        return $this->render('charts', [
+            'monthResult' => $monthResult,
+            'months' => $months,
+            'month' => $month,
+        ]);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * Displays a single Date model.
      * @param integer $id
@@ -225,12 +253,20 @@ class DateController extends Controller
         $sum_click = 0;
         $sum_order = 0;
         $sum_CPL = 0;
+        $sum_direct_rate=0;
+        $sum_adwords_rate=0;
+        $sum_direct_order=0;
+        $sum_adwords_order=0;
         $amount = 0;
 
         foreach ($this->getMonths()[$month] as $day) {
             $date = Date::findOne(['date' => $day]);
             $result = new Result();
             $result->resolveDate($date);
+            $sum_direct_rate+=$result->direct_rate;
+            $sum_adwords_rate+=$result->adwords_rate;
+            $sum_direct_order+=$result->direct_order;
+            $sum_adwords_order+=$result->adwords_order;
             $sum_rate += $result->total_rate;
             $sum_click += $result->total_click;
             $sum_order += $result->total_order;
@@ -239,6 +275,11 @@ class DateController extends Controller
             $monthResult->days[$day]=$result;
         }
 
+
+
+
+        $monthResult->sum_adwords_rate = $sum_adwords_rate;
+        $monthResult->sum_direct_rate = $sum_direct_rate;
         $monthResult->sum_rate = number_format($sum_rate, 2);
         $monthResult->sum_click = $sum_click;
         $monthResult->sum_order = $sum_order;
@@ -246,12 +287,21 @@ class DateController extends Controller
         $monthResult->sum_CPL = ($sum_order == 0) ? 0 : round($sum_rate / $sum_order, 2);
         $monthResult->amount = $amount ? $amount : 1;
 
+     
+
 
         $monthResult->average_rate =number_format($sum_rate / $amount, 2);
         $monthResult->average_order=number_format($sum_order / $amount, 2);
         $monthResult->average_CPL=number_format($sum_CPL / $amount, 2);
-   
+        $monthResult->average_click=number_format($sum_click / $amount, 2);
 
+
+       
+
+        $monthResult->average_direct_CPL=number_format($sum_direct_rate / $sum_direct_order, 2);
+        $monthResult->average_adwords_CPL=number_format($sum_adwords_rate / $sum_adwords_order, 2);
+        
+        
         return $monthResult;
 
     }
