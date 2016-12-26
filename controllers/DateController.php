@@ -298,8 +298,8 @@ class DateController extends Controller
 
        
 
-        $monthResult->average_direct_CPL=number_format($sum_direct_rate / $sum_direct_order, 2);
-        $monthResult->average_adwords_CPL=number_format($sum_adwords_rate / $sum_adwords_order, 2);
+        $monthResult->average_direct_CPL=$sum_direct_rate / $sum_direct_order;
+        $monthResult->average_adwords_CPL=$sum_adwords_rate / $sum_adwords_order;
         
         
         return $monthResult;

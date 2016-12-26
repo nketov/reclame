@@ -110,11 +110,11 @@ Html::endForm() ?>
             <tr>
             <tr>
                 <td class="mini-3">CPL в Директе</td>
-                <td class="mini-3"><?php echo $monthResult->average_direct_CPL ?> ₽</td>
+                <td class="mini-3"><?php echo number_format($monthResult->average_direct_CPL,2) ?> ₽</td>
             <tr>
             <tr>
                 <td class="mini-4">CPL в Adwords</td>
-                <td class="mini-4"><?php echo $monthResult->average_adwords_CPL ?> ₽</td>
+                <td class="mini-4"><?php echo number_format($monthResult->average_adwords_CPL,2) ?> ₽</td>
             <tr>
             <tr>
                 <td class="mini-5">К-во кликов в день</td>
@@ -135,15 +135,16 @@ Html::endForm() ?>
         <?php echo Highcharts::widget([
             'scripts' => [
                 'modules/exporting',
+
             ],
             'options' => [
                 'title' => [
-                    'text' => 'Расход за '.$periodName,
+                    'text' => 'Расход за '.$month,
                 ],
                 'series' => [
                     [
                         'type' => 'pie',
-                        'name' => 'Расход за период',
+                        'name' => 'Расход ',
                         'data' => [
                             [
                                 'name' => "AdWords расход",
@@ -158,7 +159,45 @@ Html::endForm() ?>
                         ],
                         'center' => [100, 100],
                         'size' => 225,
-                        'showInLegend' => false,
+                        'showInLegend' => true,
+                        'fill' =>"#FFFF00",
+                        'dataLabels' => [
+                            'enabled' => false,
+                        ],
+                    ],
+                ]
+            ]
+        ])
+        ?>
+<br>
+        <?php echo Highcharts::widget([
+            'scripts' => [
+                'modules/exporting',
+
+            ],
+            'options' => [
+                'title' => [
+                    'text' => 'CPL за '.$month,
+                ],
+                'series' => [
+                    [
+                        'type' => 'pie',
+                        'name' => 'CPL ',
+                        'data' => [
+                            [
+                                'name' => "AdWords CPL",
+                                'y' => round($monthResult->average_adwords_CPL,2),
+                                'color' => 'rgba(12,255,120, 1)'
+                            ],
+                            [
+                                'name' => "Директ CPL",
+                                'y' => round($monthResult->average_direct_CPL,2),
+                                'color' => ' rgba(255,217,102,1)'
+                            ],
+                        ],
+                        'center' => [100, 100],
+                        'size' => 225,
+                        'showInLegend' => true,
                         'dataLabels' => [
                             'enabled' => false,
                         ],
