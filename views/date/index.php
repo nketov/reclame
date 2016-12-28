@@ -73,24 +73,24 @@ Html::endForm() ?>
 
             ?>
 
-
-            <tr class="month-sum">
-                <td class="date"><?php echo "За" . $periodName . "общее: " ?></td>
-                <td class="total"><?php echo $monthResult->sum_rate ?></td>
-                <td class="total"><?php echo $monthResult->sum_click ?></td>
-                <td class="total"><?php echo $monthResult->sum_conversion ?></td>
-                <td class="total"><?php echo $monthResult->sum_order ?></td>
-                <td class="total"><?php echo $monthResult->sum_CPL ?></td>
-            <tr>
-
-            <tr class="month-average">
-                <td class="date"><?php echo "За" . $periodName . "среднее: " ?></td>
-                <td class="total"><?php echo $monthResult->average_rate ?></td>
-                <td class="total"><?php echo "" ?></td>
-                <td class="total"><?php echo "" ?></td>
-                <td class="total"><?php echo $monthResult->average_order ?></td>
-                <td class="total"><?php echo $monthResult->average_CPL ?></td>
-            <tr>
+<!---->
+<!--            <tr class="month-sum">-->
+<!--                <td class="date">--><?php //echo "За" . $periodName . "общее: " ?><!--</td>-->
+<!--                <td class="total">--><?php //echo $monthResult->sum_rate ?><!--</td>-->
+<!--                <td class="total">--><?php //echo $monthResult->sum_click ?><!--</td>-->
+<!--                <td class="total">--><?php //echo $monthResult->sum_conversion ?><!--</td>-->
+<!--                <td class="total">--><?php //echo $monthResult->sum_order ?><!--</td>-->
+<!--                <td class="total">--><?php //echo $monthResult->sum_CPL ?><!--</td>-->
+<!--            <tr>-->
+<!---->
+<!--            <tr class="month-average">-->
+<!--                <td class="date">--><?php //echo "За" . $periodName . "среднее: " ?><!--</td>-->
+<!--                <td class="total">--><?php //echo $monthResult->average_rate ?><!--</td>-->
+<!--                <td class="total">--><?php //echo "" ?><!--</td>-->
+<!--                <td class="total">--><?php //echo "" ?><!--</td>-->
+<!--                <td class="total">--><?php //echo $monthResult->average_order ?><!--</td>-->
+<!--                <td class="total">--><?php //echo $monthResult->average_CPL ?><!--</td>-->
+<!--            <tr>-->
 
 
             </tbody>
@@ -170,44 +170,7 @@ Html::endForm() ?>
         ])
         ?>
 <br>
-        <?php echo Highcharts::widget([
-            'scripts' => [
-                'modules/exporting',
-
-            ],
-            'options' => [
-                'title' => [
-                    'text' => 'CPL за '.$month,
-                ],
-                'series' => [
-                    [
-                        'type' => 'pie',
-                        'name' => 'CPL ',
-                        'data' => [
-                            [
-                                'name' => "AdWords CPL",
-                                'y' => round($monthResult->average_adwords_CPL,2),
-                                'color' => 'rgba(12,255,120, 1)'
-                            ],
-                            [
-                                'name' => "Директ CPL",
-                                'y' => round($monthResult->average_direct_CPL,2),
-                                'color' => ' rgba(255,217,102,1)'
-                            ],
-                        ],
-                        'center' => [100, 100],
-                        'size' => 225,
-                        'showInLegend' => true,
-                        'dataLabels' => [
-                            'enabled' => false,
-                        ],
-                    ],
-                ]
-            ]
-        ])
-        ?>
-
-
+       
     </div>
 
 </div>
