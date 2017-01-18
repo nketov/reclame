@@ -53,7 +53,8 @@ Html::endForm() ?>
                             $name = 'total_rate';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => 'rgba(155,155,155, 1)'
+                        'color' => 'rgba(155,155,155, 1)',
+                        'lineWidth' => '2px'
                     ],
                     [
                         'type' => 'spline',
@@ -62,8 +63,8 @@ Html::endForm() ?>
                             $name = 'adwords_rate';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-
-                        'color' => 'rgba(12,255,120, 0.5)'
+                        'color' => 'rgba(12,255,120, 0.5)',
+                        'lineWidth' => '2px'
                     ],
                     [
                         'type' => 'spline',
@@ -72,7 +73,8 @@ Html::endForm() ?>
                             $name = 'direct_rate';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => ' rgba(255,217,102,1)'
+                        'color' => ' rgba(255,217,102,1)',
+                        'lineWidth' => '2px'
                     ],
                     [
                         'type' => 'spline',
@@ -81,7 +83,8 @@ Html::endForm() ?>
                             $name = 'total_CPL';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => 'rgba(1,1,1, 1)'
+                        'color' => 'rgba(1,1,1, 1)',
+                        'lineWidth' => '2px'
                     ],
                     [
                         'type' => 'spline',
@@ -91,7 +94,8 @@ Html::endForm() ?>
                             return (float)$day->{$name};
                         }, $monthResult->days)),
 
-                        'color' => 'rgba(0,155,50, 1)'
+                        'color' => 'rgba(0,155,50, 1)',
+                        'lineWidth' => '2px'
                     ],
                     [
                         'type' => 'spline',
@@ -100,7 +104,8 @@ Html::endForm() ?>
                             $name = 'direct_CPL';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => ' rgba(155,155,0,1)'
+                        'color' => ' rgba(155,155,0,1)',
+                        'lineWidth' => '2px'
                     ],
 
                 ],
@@ -124,6 +129,7 @@ Html::endForm() ?>
                 'title' => [
                     'text' => "Заявки",
                 ],
+
                 'xAxis' => [
                     'categories' => array_keys($monthResult->days)
                 ],
@@ -140,7 +146,8 @@ Html::endForm() ?>
                             $name = 'total_order';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => 'rgba(155,155,155, 1)'
+                        'color' => 'rgba(155,155,155, 1)',
+                        'lineWidth' => '2px'
                     ],
                     [
                         'type' => 'spline',
@@ -150,7 +157,8 @@ Html::endForm() ?>
                             return (float)$day->{$name};
                         }, $monthResult->days)),
 
-                        'color' => 'rgba(12,255,120, 0.5)'
+                        'color' => 'rgba(12,255,120, 0.5)',
+                        'lineWidth' => '2px'
                     ],
                     [
                         'type' => 'spline',
@@ -159,7 +167,8 @@ Html::endForm() ?>
                             $name = 'direct_order';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => ' rgba(255,217,102,1)'
+                        'color' => ' rgba(255,217,102,1)',
+                        'lineWidth' => '2px'
                     ],
                 ],
             ]
