@@ -11,6 +11,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use linslin\yii2\curl;
+
 
 /**
  * DateController implements the CRUD actions for Date model.
@@ -19,10 +21,13 @@ class DateController extends Controller
 
 {
 
+
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
+    public
+    function behaviors()
     {
 
         return [
@@ -31,7 +36,7 @@ class DateController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index','charts'],
+                        'actions' => ['index', 'charts'],
                         'roles' => ['?'],
                     ],
                     [
@@ -48,7 +53,7 @@ class DateController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
-                    'confirm' => ['POST','GET'],
+                    'confirm' => ['GET'],
 
                 ],
             ],
@@ -59,17 +64,66 @@ class DateController extends Controller
      * Lists all Date models.
      * @return mixed
      */
-    public function actionIndex()
+    public  function actionIndex()
 
     {
 
-        $months=$this->getMonths();
 
-        $month=$_POST['month']? $_POST['month'] : end(array_keys($months));
-        $monthResult=$this->getMonthResult($month);
+        $campaigns = array(16007169,
+            15696384,
+            22412545,
+            22412554,
+            22412577,
+            22330519,
+            22330526,
+            22330539,
+            22903546,
+            21537279,
+            21537256,
+            23734392,
+            21537238,
+            21537220
+        );
 
-        
-        return $this->render('index', [           
+        $direct = Yii::$app->direct->setToken('AQAAAAAT8YTVAAP95Qg9u07pFU-Arhq94r93oik');
+
+        $click=0;
+        $sum=0;
+
+        $res = $direct->GetSummaryStat(array(
+            'CampaignIDS' => $campaigns,
+            'StartDate' => '2017-01-17',
+            'EndDate' => '2017-01-17',
+            'Currency' => 'RUB',
+            "IncludeVAT" =>'No',
+            "IncludeDiscount" => 'No'
+        ));
+
+
+        foreach ($res->result as $result){
+         echo $result['CampaignID'];
+        d($result);
+        $click += $result['ClicksSearch'];
+        $sum +=$result['GoalCostSearch'];
+        }
+d($click);
+d($sum);
+        exit;
+
+//echo $token = Yii::$app->direct->getDirectToken('3483020');
+
+
+//$direct= Yii::$app->direct->setLogin('elama-15968051@yandex.ru')->setToken('sDppADWcwnPouhUu');
+//
+
+
+        $months = $this->getMonths();
+
+        $month = $_GET['month'] ? $_GET['month'] : end(array_keys($months));
+        $monthResult = $this->getMonthResult($month);
+
+
+        return $this->render('index', [
             'monthResult' => $monthResult,
             'months' => $months,
             'month' => $month,
@@ -77,16 +131,15 @@ class DateController extends Controller
     }
 
 
-
-
-    public function actionCharts()
+    public
+    function actionCharts()
 
     {
 
-        $months=$this->getMonths();
+        $months = $this->getMonths();
 
-        $month=$_POST['month']? $_POST['month'] : end(array_keys($months));
-        $monthResult=$this->getMonthResult($month);
+        $month = $_POST['month'] ? $_POST['month'] : end(array_keys($months));
+        $monthResult = $this->getMonthResult($month);
 
 
         return $this->render('charts', [
@@ -95,21 +148,15 @@ class DateController extends Controller
             'month' => $month,
         ]);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
     /**
      * Displays a single Date model.
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public
+    function actionView($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -121,19 +168,20 @@ class DateController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public
+    function actionCreate()
     {
 
         $model = new Date();
-        $model->date=date("Y-m-d");
+        $model->date = date("Y-m-d");
 
         $dates = Date::find()->orderBy('date')->all();
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                                
-            Yii::$app->session->setFlash('save', 'Дaнные '. date('d.m.Y', strtotime($model->date)).' сохранены'  );
-            
+
+            Yii::$app->session->setFlash('save', 'Дaнные ' . date('d.m.Y', strtotime($model->date)) . ' сохранены');
+
             return $this->redirect(array('create'));
         } else {
             return $this->render('create', [
@@ -149,7 +197,8 @@ class DateController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public
+    function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
@@ -168,7 +217,8 @@ class DateController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public
+    function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
@@ -176,15 +226,16 @@ class DateController extends Controller
     }
 
 
-    public function actionConfirm()
+    public
+    function actionConfirm()
     {
 
-        if (Yii::$app->request->isPost) {
-            if (!isset($_POST['ajax']))
+        if (Yii::$app->request->isGet) {
+            if (!isset($_GET['ajax']))
                 $date = date('Y-m-d', strtotime($_GET['date']));
-            $model=Date::find() ->where(["date" => $date])->one();
+            $model = Date::find()->where(["date" => $date])->one();
 
-            if(!$model){
+            if (!$model) {
                 return false;
             }
 
@@ -204,7 +255,8 @@ class DateController extends Controller
      * @return Date the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Date::findOne($id)) !== null) {
             return $model;
@@ -213,69 +265,69 @@ class DateController extends Controller
         }
     }
 
-    private function getMonth($day)
+    private
+    function getMonth($day)
 
     {
-        $first = mktime(0, 0, 0, date('m',$day), 1, date("Y",$day));
-        $last = mktime(0, 0, 0, date('m',$day)+1, 0, date("Y",$day));
+        $first = mktime(0, 0, 0, date('m', $day), 1, date("Y", $day));
+        $last = mktime(0, 0, 0, date('m', $day) + 1, 0, date("Y", $day));
 
-        while ($first<=$last)
-        {
-            $m[]= date('Y-m-d',$first);
-            $first+=86400;
+        while ($first <= $last) {
+            $m[] = date('Y-m-d', $first);
+            $first += 86400;
         }
 
         return $m;
 
     }
 
-    private function getMonths()
+    private
+    function getMonths()
     {
-        $month_array = array("01"=>"Январь","02"=>"Февраль","03"=>"Март","04"=>"Апрель","05"=>"Май", "06"=>"Июнь", "07"=>"Июль","08"=>"Август","09"=>"Сентябрь","10"=>"Октябрь","11"=>"Ноябрь","12"=>"Декабрь");
-        $now=mktime(0,0,0,date('m'), date("d"), date("Y"));
-        $start=mktime(0, 0, 0, 9, 1, 2016);
-        $months['Весь период'] =[];
-        while($start < $now){
-           $name = $month_array[date('m',$start)]." ".date('Y',$start);
-            $months[$name]= $this->getMonth($start);
-            $months['Весь период'] = array_merge($months['Весь период'],$this->getMonth($start));
-            $start=mktime(0, 0, 0, date('m',$start)+1, 1, date("Y",$start));
+        $month_array = array("01" => "Январь", "02" => "Февраль", "03" => "Март", "04" => "Апрель", "05" => "Май", "06" => "Июнь", "07" => "Июль", "08" => "Август", "09" => "Сентябрь", "10" => "Октябрь", "11" => "Ноябрь", "12" => "Декабрь");
+        $now = mktime(0, 0, 0, date('m'), date("d"), date("Y"));
+        $start = mktime(0, 0, 0, 9, 1, 2016);
+        $months['Весь период'] = [];
+        while ($start < $now) {
+            $name = $month_array[date('m', $start)] . " " . date('Y', $start);
+            $months[$name] = $this->getMonth($start);
+            $months['Весь период'] = array_merge($months['Весь период'], $this->getMonth($start));
+            $start = mktime(0, 0, 0, date('m', $start) + 1, 1, date("Y", $start));
         }
 
         return $months;
 
     }
 
-    private function getMonthResult($month)
+    private
+    function getMonthResult($month)
     {
-        $monthResult= new MonthResult();
+        $monthResult = new MonthResult();
         $sum_rate = 0;
         $sum_click = 0;
         $sum_order = 0;
         $sum_CPL = 0;
-        $sum_direct_rate=0;
-        $sum_adwords_rate=0;
-        $sum_direct_order=0;
-        $sum_adwords_order=0;
+        $sum_direct_rate = 0;
+        $sum_adwords_rate = 0;
+        $sum_direct_order = 0;
+        $sum_adwords_order = 0;
         $amount = 0;
 
         foreach ($this->getMonths()[$month] as $day) {
             $date = Date::findOne(['date' => $day]);
             $result = new Result();
             $result->resolveDate($date);
-            $sum_direct_rate+=$result->direct_rate;
-            $sum_adwords_rate+=$result->adwords_rate;
-            $sum_direct_order+=$result->direct_order;
-            $sum_adwords_order+=$result->adwords_order;
+            $sum_direct_rate += $result->direct_rate;
+            $sum_adwords_rate += $result->adwords_rate;
+            $sum_direct_order += $result->direct_order;
+            $sum_adwords_order += $result->adwords_order;
             $sum_rate += $result->total_rate;
             $sum_click += $result->total_click;
             $sum_order += $result->total_order;
             $sum_CPL += $result->total_CPL;
             $amount++;
-            $monthResult->days[$day]=$result;
+            $monthResult->days[$day] = $result;
         }
-
-
 
 
         $monthResult->sum_adwords_rate = $sum_adwords_rate;
@@ -287,21 +339,17 @@ class DateController extends Controller
         $monthResult->sum_CPL = ($sum_order == 0) ? 0 : round($sum_rate / $sum_order, 2);
         $monthResult->amount = $amount ? $amount : 1;
 
-     
+
+        $monthResult->average_rate = number_format($sum_rate / $amount, 2);
+        $monthResult->average_order = number_format($sum_order / $amount, 2);
+        $monthResult->average_CPL = number_format($sum_CPL / $amount, 2);
+        $monthResult->average_click = number_format($sum_click / $amount, 2);
 
 
-        $monthResult->average_rate =number_format($sum_rate / $amount, 2);
-        $monthResult->average_order=number_format($sum_order / $amount, 2);
-        $monthResult->average_CPL=number_format($sum_CPL / $amount, 2);
-        $monthResult->average_click=number_format($sum_click / $amount, 2);
+        $monthResult->average_direct_CPL = $sum_direct_order == 0 ? 0 : $sum_direct_rate / $sum_direct_order;
+        $monthResult->average_adwords_CPL = $sum_adwords_order == 0 ? 0 : $sum_adwords_rate / $sum_adwords_order;
 
 
-       
-
-        $monthResult->average_direct_CPL=$sum_direct_order==0 ? 0: $sum_direct_rate / $sum_direct_order;
-        $monthResult->average_adwords_CPL=$sum_adwords_order==0 ? 0: $sum_adwords_rate / $sum_adwords_order;
-        
-        
         return $monthResult;
 
     }

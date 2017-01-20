@@ -9,14 +9,23 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 
 
+
 $this->title = 'Общие показатели ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<?php
+
+
+
+
+?>
+
+
 <h1 style="display: inline"><?= Html::encode($this->title) ?></h1>
 
 <?= Html::beginForm(
-    ['index'], 'post', ['style' => "display:inline"]
+    ['index'], 'get', ['style' => "display:inline"]
 );
 foreach (array_keys($months) as $m) {
     $values[$m] = $m;

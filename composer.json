@@ -23,7 +23,10 @@
         "components/font-awesome": "^4.6",
 	   "miloschuman/yii2-highcharts-widget": "dev-master",
         "kartik-v/yii2-krajee-base": "dev-master",       
-        "kartik-v/yii2-widget-growl": "*"        
+        "kartik-v/yii2-widget-growl": "*",
+        "g1k/yii2-direct-api": "dev-master",
+        "linslin/yii2-curl": "*"
+
     },
     "require-dev": {        
         "yiisoft/yii2-debug": "*",

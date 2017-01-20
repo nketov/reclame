@@ -28,7 +28,7 @@ $(window).keydown(function(event) {
     var date = $(".datepicker").val();  
      
       $.ajax({
-        type:'post',
+        type:'get',
         url: 'confirm.html?date='+date,
         async :false       
         }).done(function(result) {
