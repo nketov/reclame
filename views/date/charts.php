@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <h1 style="display: inline"><?= Html::encode($this->title) ?></h1>
 
 <?= Html::beginForm(
-    ['charts'], 'post', ['style' => "display:inline"]
+    ['charts'], 'get', ['style' => "display:inline"]
 );
 foreach (array_keys($months) as $m) {
     $values[$m] = $m;
@@ -35,7 +35,7 @@ Html::endForm() ?>
             ],
             'options' => [
                 'title' => [
-                    'text' => $month,
+                    'text' => "Расход ",
                 ],
                 'xAxis' => [
                     'categories' => array_keys($monthResult->days)
@@ -53,8 +53,7 @@ Html::endForm() ?>
                             $name = 'total_rate';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => 'rgba(155,155,155, 1)',
-                        'lineWidth' => '2px'
+                        'color' => 'rgba(155,155,155, 1)'
                     ],
                     [
                         'type' => 'spline',
@@ -63,8 +62,8 @@ Html::endForm() ?>
                             $name = 'adwords_rate';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => 'rgba(12,255,120, 0.5)',
-                        'lineWidth' => '2px'
+
+                        'color' => 'rgba(12,255,120, 0.5)'
                     ],
                     [
                         'type' => 'spline',
@@ -73,9 +72,40 @@ Html::endForm() ?>
                             $name = 'direct_rate';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => ' rgba(255,217,102,1)',
-                        'lineWidth' => '2px'
-                    ],
+                        'color' => ' rgba(255,217,102,1)'
+                    ]
+
+                ],
+            ]
+
+        ]);
+        ?>
+    </div>
+</div>
+
+
+<br>
+<div class="row">
+    <div class="date-index col-lg-12">
+        <?php
+
+        echo Highcharts::widget([
+            'scripts' => [
+                'modules/exporting',
+            ],
+            'options' => [
+                'title' => [
+                    'text' => "CPL",
+                ],
+                'xAxis' => [
+                    'categories' => array_keys($monthResult->days)
+                ],
+                'yAxis' => [
+                    'title' => '',
+                ],
+
+
+                'series' => [
                     [
                         'type' => 'spline',
                         'name' => "Итого CPL",
@@ -83,8 +113,7 @@ Html::endForm() ?>
                             $name = 'total_CPL';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => 'rgba(1,1,1, 1)',
-                        'lineWidth' => '2px'
+                        'color' =>  'rgba(155,155,155, 1)'
                     ],
                     [
                         'type' => 'spline',
@@ -94,8 +123,7 @@ Html::endForm() ?>
                             return (float)$day->{$name};
                         }, $monthResult->days)),
 
-                        'color' => 'rgba(0,155,50, 1)',
-                        'lineWidth' => '2px'
+                        'color' => 'rgba(12,255,120, 0.5)'
                     ],
                     [
                         'type' => 'spline',
@@ -104,17 +132,17 @@ Html::endForm() ?>
                             $name = 'direct_CPL';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => ' rgba(155,155,0,1)',
-                        'lineWidth' => '2px'
+                        'color' =>  ' rgba(255,217,102,1)'
                     ],
-
                 ],
             ]
 
         ]);
         ?>
+
     </div>
 </div>
+<br>
 
 <br>
 <div class="row">
@@ -129,7 +157,6 @@ Html::endForm() ?>
                 'title' => [
                     'text' => "Заявки",
                 ],
-
                 'xAxis' => [
                     'categories' => array_keys($monthResult->days)
                 ],
@@ -146,8 +173,7 @@ Html::endForm() ?>
                             $name = 'total_order';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => 'rgba(155,155,155, 1)',
-                        'lineWidth' => '2px'
+                        'color' => 'rgba(155,155,155, 1)'
                     ],
                     [
                         'type' => 'spline',
@@ -157,8 +183,7 @@ Html::endForm() ?>
                             return (float)$day->{$name};
                         }, $monthResult->days)),
 
-                        'color' => 'rgba(12,255,120, 0.5)',
-                        'lineWidth' => '2px'
+                        'color' => 'rgba(12,255,120, 0.5)'
                     ],
                     [
                         'type' => 'spline',
@@ -167,8 +192,7 @@ Html::endForm() ?>
                             $name = 'direct_order';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => ' rgba(255,217,102,1)',
-                        'lineWidth' => '2px'
+                        'color' => ' rgba(255,217,102,1)'
                     ],
                 ],
             ]

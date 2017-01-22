@@ -22,7 +22,6 @@ class DateController extends Controller
 {
 
 
-
     /**
      * @inheritdoc
      */
@@ -64,7 +63,7 @@ class DateController extends Controller
      * Lists all Date models.
      * @return mixed
      */
-    public  function actionIndex()
+    public function actionIndex()
 
     {
 
@@ -87,27 +86,32 @@ class DateController extends Controller
 
         $direct = Yii::$app->direct->setToken('AQAAAAAT8YTVAAP95Qg9u07pFU-Arhq94r93oik');
 
-        $click=0;
-        $sum=0;
+        $click = 0;
+        $sum = 0;
 
         $res = $direct->GetSummaryStat(array(
             'CampaignIDS' => $campaigns,
             'StartDate' => '2017-01-17',
             'EndDate' => '2017-01-17',
             'Currency' => 'RUB',
-            "IncludeVAT" =>'No',
+            "IncludeVAT" => 'No',
             "IncludeDiscount" => 'No'
         ));
 
 
-        foreach ($res->result as $result){
-         echo $result['CampaignID'];
-        d($result);
-        $click += $result['ClicksSearch'];
-        $sum +=$result['GoalCostSearch'];
+        foreach ($res->result as $result) {
+            echo $result['CampaignID'];
+            echo  '<br>';
+            echo 'ClicksSearch  '.$result['ClicksSearch'];
+            echo  '<br>';
+            echo 'GoalCostSearch  '.$result['GoalCostSearch'];
+            d($result);
+            $click += $result['ClicksSearch'];
+            $sum += $result['GoalCostSearch'];
         }
-d($click);
-d($sum);
+
+        d($click);
+        d($sum);
         exit;
 
 //echo $token = Yii::$app->direct->getDirectToken('3483020');
@@ -138,7 +142,7 @@ d($sum);
 
         $months = $this->getMonths();
 
-        $month = $_POST['month'] ? $_POST['month'] : end(array_keys($months));
+        $month = $_GET['month'] ? $_GET['month'] : end(array_keys($months));
         $monthResult = $this->getMonthResult($month);
 
 
