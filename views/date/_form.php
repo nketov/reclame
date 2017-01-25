@@ -10,6 +10,25 @@ $(".date-create").on("click",".clear",function(event) {
 });
 
 
+ $('.modal-footer').on('click','.get-direct',function(event) {
+ 
+ var date = $(".datepicker").val();  
+  
+      $.ajax({
+        type:'get',
+        url: 'direct.html?date='+date,
+        async :false 
+        }).done(function(result) {
+        
+        result = JSON.parse(result);
+    
+        if (result){    	         	  	       	  	  
+            $('#date-direct_click').val(result.click);
+            $('#date-direct_rate').val(result.sum); 	  	
+ 	 } 	 
+ 	return true;
+});
+
 
     $(".float").keyup(function() {        
         var val=$(this).val();
@@ -25,25 +44,19 @@ $(window).keydown(function(event) {
     
  $('.date-form').on('submit',function(event) {
 
-    var date = $(".datepicker").val();  
-     
+    var date = $(".datepicker").val();       
       $.ajax({
         type:'get',
         url: 'confirm.html?date='+date,
         async :false       
         }).done(function(result) {
-
-        if (result){  	 
-         	  	        if (!confirm('Запись за '+result+ ' существует, заменить её новыми данными?'))
- 	  	    { 	  	      
- 	  	     event.preventDefault();
- 	  	      return false; 
- 	  	  }  	  	  	  	  
- 	  	  return true;
- 	 } 	 
+        
+      })
+         	 
  	return true;
 });
-         
+
+        
 
 
 });
@@ -64,7 +77,7 @@ use yii\widgets\ActiveForm;
 <div class="date-form">
     <?= Html::csrfMetaTags() ?>
     <?php $form = ActiveForm::begin([
-            'id'=>'target-form'
+            'id' => 'target-form'
 
         ]
     ); ?>
@@ -81,7 +94,7 @@ use yii\widgets\ActiveForm;
                         'style' => "margin-top:50px;",
                         'readonly' => 'readonly'
                     ],
-                    'clientOptions' =>[
+                    'clientOptions' => [
 //                        'changeMonth'=>true,
 //                        'changeYear'=>true,
                         'showAnim' => 'fold',
@@ -90,7 +103,7 @@ use yii\widgets\ActiveForm;
                     ],
                     'language' => 'ru',
                     'dateFormat' => 'dd.MM.yyyy',
-                    'value'=>date('Y-m-d'),
+                    'value' => date('Y-m-d'),
                 ]) ?>
             </div>
         </div>
@@ -99,9 +112,9 @@ use yii\widgets\ActiveForm;
             <div class="panel direct">
                 <div class="panel-heading">Директ</div>
                 <div class="panel-body">
-                    <?= $form->field($model, 'direct_rate')->textInput(['maxlength' => true, 'class' => 'float  form-control','autocomplete'=> 'off']) ?>
-                    <?= $form->field($model, 'direct_click')->textInput(['class' => 'digital-input form-control','autocomplete'=> 'off']) ?>
-                    <?= $form->field($model, 'direct_order')->textInput(['class' => 'digital-input form-control','autocomplete'=> 'off']) ?>
+                    <?= $form->field($model, 'direct_rate')->textInput(['maxlength' => true, 'class' => 'float  form-control', 'autocomplete' => 'off']) ?>
+                    <?= $form->field($model, 'direct_click')->textInput(['class' => 'digital-input form-control', 'autocomplete' => 'off']) ?>
+                    <?= $form->field($model, 'direct_order')->textInput(['class' => 'digital-input form-control', 'autocomplete' => 'off']) ?>
                 </div>
             </div>
         </div>
@@ -110,9 +123,9 @@ use yii\widgets\ActiveForm;
             <div class="panel adwords">
                 <div class="panel-heading">AdWords</div>
                 <div class="panel-body">
-                    <?= $form->field($model, 'adwords_rate')->textInput(['maxlength' => true, 'class' => 'float form-control','autocomplete'=> 'off']) ?>
-                    <?= $form->field($model, 'adwords_click')->textInput(['class' => 'digital-input form-control','autocomplete'=> 'off']) ?>
-                    <?= $form->field($model, 'adwords_order')->textInput(['class' => 'digital-input form-control','autocomplete'=> 'off']) ?>
+                    <?= $form->field($model, 'adwords_rate')->textInput(['maxlength' => true, 'class' => 'float form-control', 'autocomplete' => 'off']) ?>
+                    <?= $form->field($model, 'adwords_click')->textInput(['class' => 'digital-input form-control', 'autocomplete' => 'off']) ?>
+                    <?= $form->field($model, 'adwords_order')->textInput(['class' => 'digital-input form-control', 'autocomplete' => 'off']) ?>
 
                 </div>
             </div>
@@ -120,8 +133,8 @@ use yii\widgets\ActiveForm;
     </div>
 
 
-<!--    <div class="form-group">-->
-<!--        --><?//= Html::submitButton($model->isNewRecord ? 'Внести данные' : 'Изменить данные', ['class' => ' save btn btn-primary btn btn-lg center-block']) ?>
+    <!--    <div class="form-group">-->
+    <!--        --><? //= Html::submitButton($model->isNewRecord ? 'Внести данные' : 'Изменить данные', ['class' => ' save btn btn-primary btn btn-lg center-block']) ?>
     <!--    </div>-->
 
     <?php ActiveForm::end(); ?>

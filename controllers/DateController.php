@@ -53,6 +53,7 @@ class DateController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                     'confirm' => ['GET'],
+                    'get-direct' => ['GET'],
 
                 ],
             ],
@@ -66,59 +67,6 @@ class DateController extends Controller
     public function actionIndex()
 
     {
-
-
-        $campaigns = array(16007169,
-            15696384,
-            22412545,
-            22412554,
-            22412577,
-            22330519,
-            22330526,
-            22330539,
-            22903546,
-            21537279,
-            21537256,
-            23734392,
-            21537238,
-            21537220
-        );
-
-        $direct = Yii::$app->direct->setToken('AQAAAAAT8YTVAAP95Qg9u07pFU-Arhq94r93oik');
-
-        $click = 0;
-        $sum = 0;
-
-        $res = $direct->GetSummaryStat(array(
-            'CampaignIDS' => $campaigns,
-            'StartDate' => '2017-01-17',
-            'EndDate' => '2017-01-17',
-            'Currency' => 'RUB',
-            "IncludeVAT" => 'No',
-            "IncludeDiscount" => 'No'
-        ));
-
-
-        foreach ($res->result as $result) {
-            echo $result['CampaignID'];
-            echo  '<br>';
-            echo 'ClicksSearch  '.$result['ClicksSearch'];
-            echo  '<br>';
-            echo 'GoalCostSearch  '.$result['GoalCostSearch'];
-            d($result);
-            $click += $result['ClicksSearch'];
-            $sum += $result['GoalCostSearch'];
-        }
-
-        d($click);
-        d($sum);
-        exit;
-
-//echo $token = Yii::$app->direct->getDirectToken('3483020');
-
-
-//$direct= Yii::$app->direct->setLogin('elama-15968051@yandex.ru')->setToken('sDppADWcwnPouhUu');
-//
 
 
         $months = $this->getMonths();
@@ -251,6 +199,60 @@ class DateController extends Controller
 //            throw new HttpException(400, 'Ошибочный запрос. Пожайлуйста, не повторяйте его снова.');
     }
 
+
+    public
+    function actionDirect()
+    {
+
+
+        if (Yii::$app->request->isGet) {
+            if (!isset($_GET['ajax'])) {
+                $date = date('Y-m-d', strtotime($_GET['date']));
+
+                $campaigns = array(16007169,
+                    15696384,
+                    22412545,
+                    22412554,
+                    22412577,
+                    22330519,
+                    22330526,
+                    22330539,
+                    22903546,
+                    21537279,
+                    21537256,
+                    23734392,
+                    21537238,
+                    21537220
+                );
+
+                $direct = Yii::$app->direct->setToken('AQAAAAAT8YTVAAP95Qg9u07pFU-Arhq94r93oik');
+
+                $click = 0;
+                $sum = 0;
+
+                $res = $direct->GetSummaryStat(array(
+                    'CampaignIDS' => $campaigns,
+                    'StartDate' => $date,
+                    'EndDate' => $date,
+                    'Currency' => 'RUB',
+                    "IncludeVAT" => 'No',
+                    "IncludeDiscount" => 'No'
+                ));
+
+
+                foreach ($res->result as $result) {
+                    $click += $result['ClicksSearch'];
+                    $click += $result['ClicksContext'];
+                    $sum += $result['SumSearch'];
+                    $sum += $result['SumContext'];
+                }
+
+                return json_encode(array('click'=>$click,'sum'=>$sum));
+
+            }
+
+        }
+    }
 
     /**
      * Finds the Date model based on its primary key value.

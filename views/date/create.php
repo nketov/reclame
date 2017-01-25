@@ -24,8 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'icon' => 'glyphicon glyphicon-floppy-disk',
             'body' => Yii::$app->session->getFlash('save')
         ]);
-
-
     }
     ?>
 
@@ -90,6 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
                 <button type="submit" form="target-form" class="save btn btn-primary">Сохранить Данные</button>
+                <button type="button"  class="get-direct btn btn-danger">Директ Данные</button>
             </div>
         </div>
     </div>
