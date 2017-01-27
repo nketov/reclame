@@ -294,6 +294,7 @@ font-weight: bold;
 
 .panel-heading {
     border: none;
+    height: 45px;
     border-top-right-radius: 14px;
     border-top-left-radius: 14px;
     font-weight: bold;

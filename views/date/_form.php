@@ -17,7 +17,7 @@ $(".date-create").on("click",".clear",function(event) {
       $.ajax({
         type:'get',
         url: 'direct.html?date='+date,
-        async :false 
+        async : true 
         }).done(function(result) {
         
         result = JSON.parse(result);
