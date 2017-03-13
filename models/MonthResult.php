@@ -21,7 +21,9 @@ class MonthResult extends Model
     public $sum_conversion;
 
     public $sum_adwords_rate;
+    public $sum_adwords_order;
     public $sum_direct_rate;
+    public $sum_direct_order;
 
     public $average_rate;
     public $average_order;

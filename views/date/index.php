@@ -9,14 +9,11 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 
 
-
 $this->title = 'Общие показатели ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php
-
-
 
 
 ?>
@@ -82,30 +79,30 @@ Html::endForm() ?>
 
             ?>
 
-<!---->
-<!--            <tr class="month-sum">-->
-<!--                <td class="date">--><?php //echo "За" . $periodName . "общее: " ?><!--</td>-->
-<!--                <td class="total">--><?php //echo $monthResult->sum_rate ?><!--</td>-->
-<!--                <td class="total">--><?php //echo $monthResult->sum_click ?><!--</td>-->
-<!--                <td class="total">--><?php //echo $monthResult->sum_conversion ?><!--</td>-->
-<!--                <td class="total">--><?php //echo $monthResult->sum_order ?><!--</td>-->
-<!--                <td class="total">--><?php //echo $monthResult->sum_CPL ?><!--</td>-->
-<!--            <tr>-->
-<!---->
-<!--            <tr class="month-average">-->
-<!--                <td class="date">--><?php //echo "За" . $periodName . "среднее: " ?><!--</td>-->
-<!--                <td class="total">--><?php //echo $monthResult->average_rate ?><!--</td>-->
-<!--                <td class="total">--><?php //echo "" ?><!--</td>-->
-<!--                <td class="total">--><?php //echo "" ?><!--</td>-->
-<!--                <td class="total">--><?php //echo $monthResult->average_order ?><!--</td>-->
-<!--                <td class="total">--><?php //echo $monthResult->average_CPL ?><!--</td>-->
-<!--            <tr>-->
+            <!---->
+            <!--            <tr class="month-sum">-->
+            <!--                <td class="date">--><?php //echo "За" . $periodName . "общее: " ?><!--</td>-->
+            <!--                <td class="total">--><?php //echo $monthResult->sum_rate ?><!--</td>-->
+            <!--                <td class="total">--><?php //echo $monthResult->sum_click ?><!--</td>-->
+            <!--                <td class="total">--><?php //echo $monthResult->sum_conversion ?><!--</td>-->
+            <!--                <td class="total">--><?php //echo $monthResult->sum_order ?><!--</td>-->
+            <!--                <td class="total">--><?php //echo $monthResult->sum_CPL ?><!--</td>-->
+            <!--            <tr>-->
+            <!---->
+            <!--            <tr class="month-average">-->
+            <!--                <td class="date">--><?php //echo "За" . $periodName . "среднее: " ?><!--</td>-->
+            <!--                <td class="total">--><?php //echo $monthResult->average_rate ?><!--</td>-->
+            <!--                <td class="total">--><?php //echo "" ?><!--</td>-->
+            <!--                <td class="total">--><?php //echo "" ?><!--</td>-->
+            <!--                <td class="total">--><?php //echo $monthResult->average_order ?><!--</td>-->
+            <!--                <td class="total">--><?php //echo $monthResult->average_CPL ?><!--</td>-->
+            <!--            <tr>-->
 
 
             </tbody>
         </table>
     </div>
-    <div class="date-index col-lg-3">
+    <div class="date-index col-lg-4">
 
         <table class="table mini-table">
             <tbody>
@@ -119,11 +116,11 @@ Html::endForm() ?>
             <tr>
             <tr>
                 <td class="mini-3">CPL в Директе</td>
-                <td class="mini-3"><?php echo number_format($monthResult->average_direct_CPL,2) ?> ₽</td>
+                <td class="mini-3"><?php echo number_format($monthResult->average_direct_CPL, 2) ?> ₽</td>
             <tr>
             <tr>
                 <td class="mini-4">CPL в Adwords</td>
-                <td class="mini-4"><?php echo number_format($monthResult->average_adwords_CPL,2) ?> ₽</td>
+                <td class="mini-4"><?php echo number_format($monthResult->average_adwords_CPL, 2) ?> ₽</td>
             <tr>
             <tr>
                 <td class="mini-5">К-во кликов в день</td>
@@ -137,6 +134,20 @@ Html::endForm() ?>
                 <td class="mini-7">Расход в день</td>
                 <td class="mini-7"><?php echo $monthResult->average_rate ?> ₽</td>
             <tr>
+            <tr>
+                <td class="mini-8">Общий расход</td>
+                <td class="mini-8"><?php echo $monthResult->sum_rate ?> ₽</td>
+            <tr>
+            <tr>
+                <td class="mini-9">Общее количество заявок</td>
+                <td class="mini-9"><?php echo $monthResult->sum_order ?> </td>
+            <tr>
+
+            <tr>
+                <td class="mini-10">Общее количество кликов</td>
+                <td class="mini-10"><?php echo $monthResult->sum_click ?> </td>
+            <tr>
+
 
             </tbody>
         </table>
@@ -148,7 +159,18 @@ Html::endForm() ?>
             ],
             'options' => [
                 'title' => [
-                    'text' => 'Расход за '.$month,
+                    'text' => 'Расход за ' . $month,
+                ],
+                'tooltip' => [
+                    'pointFormat' => '<span style="color:{point.color}">{series.name}</span> : <b>{point.y} 
+                                                <span style="color:{point.color}"> ₽</span></b><br/>
+                                                <span style="color:{point.color}">Заявки</span> : <b>{point.ord}</b>',
+                    'backgroundColor' => '#222',
+                    'style' => ["color" => "#DDD",
+                        "cursor" => "default",
+                        "fontSize" => "16px",
+                        "pointerEvents" => "none",
+                        "whiteSpace" => "nowrap"],
                 ],
                 'series' => [
                     [
@@ -156,20 +178,22 @@ Html::endForm() ?>
                         'name' => 'Расход ',
                         'data' => [
                             [
-                                'name' => "AdWords расход",
+                                'name' => " AdWords",
                                 'y' => (float)$monthResult->sum_adwords_rate,
+                                'ord' => (float)$monthResult->sum_adwords_order,
                                 'color' => 'rgba(12,255,120, 1)'
                             ],
                             [
-                                'name' => "Директ расход",
+                                'name' => " Директ",
                                 'y' => (float)$monthResult->sum_direct_rate,
+                                'ord' => (float)$monthResult->sum_direct_order,
                                 'color' => ' rgba(255,217,102,1)'
                             ],
                         ],
-                        'center' => [100, 100],
-                        'size' => 225,
+                        'center' => [150, 115],
+                        'size' => 275,
                         'showInLegend' => true,
-                        'fill' =>"#FFFF00",
+                        'fill' => "#FFFF00",
                         'dataLabels' => [
                             'enabled' => false,
                         ],
@@ -178,8 +202,8 @@ Html::endForm() ?>
             ]
         ])
         ?>
-<br>
-       
+        <br>
+
     </div>
 
 </div>

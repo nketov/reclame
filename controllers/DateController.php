@@ -337,7 +337,9 @@ class DateController extends Controller
 
 
         $monthResult->sum_adwords_rate = $sum_adwords_rate;
+        $monthResult->sum_adwords_order = $sum_adwords_order;
         $monthResult->sum_direct_rate = $sum_direct_rate;
+        $monthResult->sum_direct_order = $sum_direct_order;
         $monthResult->sum_rate = number_format($sum_rate, 2);
         $monthResult->sum_click = $sum_click;
         $monthResult->sum_order = $sum_order;
