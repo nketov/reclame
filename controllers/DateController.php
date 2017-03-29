@@ -102,6 +102,23 @@ class DateController extends Controller
     }
 
 
+    public
+    function actionBets()
+
+    {
+
+//        $months = $this->getMonths();
+//
+//        $month = $_GET['month'] ? $_GET['month'] : end(array_keys($months));
+//        $monthResult = $this->getMonthResult($month);
+
+
+        return $this->render('bets');
+    }
+
+
+
+
     /**
      * Displays a single Date model.
      * @param integer $id
