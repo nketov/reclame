@@ -8,6 +8,7 @@ use Yii;
 use app\models\Date;
 use app\models\DateSearch;
 use yii\filters\AccessControl;
+use yii\httpclient\Client;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -107,16 +108,47 @@ class DateController extends Controller
 
     {
 
-//        $months = $this->getMonths();
-//
-//        $month = $_GET['month'] ? $_GET['month'] : end(array_keys($months));
-//        $monthResult = $this->getMonthResult($month);
+
+//        $client = new Client();
+//        $response = $client->createRequest()
+//            ->setMethod('get')
+//            ->setUrl('http://api')
+//            ->setData(['method' => 'versioncheck'])
+//            ->send();
+//        if ($response->isOk) {
+//            $newUserId = $response->data['id'];
+//        }
+
+        $client = new Client(['baseUrl' => 'https://api.direct.yandex.com/json/v5/campaigns', 'requestConfig' => [
+            'format' => Client::FORMAT_JSON
+        ]]);
+
+        $request = $client->createRequest()
+            ->setHeaders(['Accept-Language' => 'ru'])
+            ->addHeaders(['content-type' => 'application/json; charset=utf-8'])
+            ->addHeaders(['Authorization' => 'Bearer AQAAAAAT8YTVAAP95Qg9u07pFU-Arhq94r93oik'])
+            ->addHeaders(['Client-Login' => 'elama-15968051@yandex.ru'])
+            ->setData(['method' => 'get',
+                'params' => [
+                    'SelectionCriteria' => [
+                       'States' => ['ON']
+                    ],
+                     'FieldNames' =>  [
+                         0 => 'Id',
+                         1 => 'Name',
+                         2 => 'Status',
+                     ]
+                ]
 
 
-        return $this->render('bets');
+            ]);
+
+
+        $response = $request->send();
+
+
+        return $this->render('bets', ['res' => $response, 'rec' => $request]);
     }
-
-
 
 
     /**
@@ -264,7 +296,7 @@ class DateController extends Controller
                     $sum += $result['SumContext'];
                 }
 
-                return json_encode(array('click'=>$click,'sum'=>$sum));
+                return json_encode(array('click' => $click, 'sum' => $sum));
 
             }
 
