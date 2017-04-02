@@ -14,7 +14,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="row">
     <div class="date-index col-lg-12">
-        <h1 ><span style="color: #0000aa">Слава</span> <span style="color:yellow"> Україні!</span></h1>
+
+        
+
+
     </div>
 </div>
 
