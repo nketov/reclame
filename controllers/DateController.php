@@ -8,6 +8,7 @@ use Yii;
 use app\models\Date;
 use app\models\DateSearch;
 use yii\filters\AccessControl;
+use yii\httpclient\Client;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -102,21 +103,7 @@ class DateController extends Controller
     }
 
 
-    public
-    function actionBets()
-
-    {
-
-//        $months = $this->getMonths();
-//
-//        $month = $_GET['month'] ? $_GET['month'] : end(array_keys($months));
-//        $monthResult = $this->getMonthResult($month);
-
-
-        return $this->render('bets');
-    }
-
-
+           
 
 
     /**
@@ -264,7 +251,7 @@ class DateController extends Controller
                     $sum += $result['SumContext'];
                 }
 
-                return json_encode(array('click'=>$click,'sum'=>$sum));
+                return json_encode(array('click' => $click, 'sum' => $sum));
 
             }
 

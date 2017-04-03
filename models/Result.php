@@ -87,11 +87,6 @@ class Result extends Model
         
         $this->total_CPL=($this->total_order==0) ? 0: round($this->total_rate/$this->total_order, 2);
 
-
-
-
-
-
     }
 
 

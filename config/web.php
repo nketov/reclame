@@ -68,7 +68,8 @@ $config = [
                     'suffix' => ''
                 ],
                 '<action:(charts)>' => 'date/<action>',
-                '<action:(bets)>' => 'date/<action>',
+                'bet/<id:\d+>' => 'bet/campaign',
+                '<action:(campaign)>' => 'bet/<action>',
                 '<action:(about|contact|login)>' => 'site/<action>'
             ],
         ],

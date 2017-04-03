@@ -25,7 +25,8 @@
         "kartik-v/yii2-krajee-base": "dev-master",       
         "kartik-v/yii2-widget-growl": "*",
         "g1k/yii2-direct-api": "dev-master",
-        "linslin/yii2-curl": "*"
+        "linslin/yii2-curl": "*",
+        "yiisoft/yii2-httpclient": "*"
 
     },
     "require-dev": {        
