@@ -135,6 +135,15 @@ class BetController extends Controller
     }
 
 
+ public function actionGroup($chId,$id)
+    {
+
+        return $this->render('group', ['chId'=>$chId,'groupId'=>$id]);
+
+
+    }
+
+
 
 
 

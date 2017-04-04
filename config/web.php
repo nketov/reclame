@@ -69,7 +69,9 @@ $config = [
                 ],
                 '<action:(charts)>' => 'date/<action>',
                 'bet/<id:\d+>' => 'bet/campaign',
+                'bet/group/<chId:\d+>/<id:\d+>' => 'bet/group',
                 '<action:(campaign)>' => 'bet/<action>',
+                '<action:(group)>' => 'bet/<action>',
                 '<action:(about|contact|login)>' => 'site/<action>'
             ],
         ],
