@@ -13,6 +13,6 @@ $this->params['breadcrumbs'][] =$this->title;
 
     <h1><?= Html::encode($this->title. ', список ключевых фраз:') ?></h1>
 
-
+        <?php d($res) ?>
 
    

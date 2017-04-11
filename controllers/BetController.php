@@ -138,7 +138,45 @@ class BetController extends Controller
  public function actionGroup($chId,$id)
     {
 
-        return $this->render('group', ['chId'=>$chId,'groupId'=>$id]);
+
+        $client = new Client(['baseUrl' => 'https://api.direct.yandex.com/json/v5/keywords', 'requestConfig' => [
+            'format' => Client::FORMAT_JSON
+        ]]);
+
+
+        $request = $client->createRequest()
+            ->setHeaders(['Accept-Language' => 'ru'])
+            ->addHeaders(['content-type' => 'application/json; charset=utf-8'])
+            ->addHeaders(['Authorization' => 'Bearer AQAAAAAT8YTVAAP95Qg9u07pFU-Arhq94r93oik'])
+            ->addHeaders(['Client-Login' => 'elama-15968051@yandex.ru'])
+            ->setData(['method' => 'get',
+                'params' => [
+                    'SelectionCriteria' => [
+                        'AdGroupIds' => [$id],
+                          'States' => ['ON']
+                    ],
+                    'FieldNames' => [
+                        0 => 'CampaignId',
+                        1 => 'Id',
+                        2 => 'Keyword',
+                        3 => 'Bid',
+                        4=>'AdGroupId'
+
+
+                    ]
+                ]
+
+
+            ]);
+
+
+        $response = json_decode($request->send()->content, true);
+
+
+
+
+
+        return $this->render('group', ['chId'=>$chId,'groupId'=>$id,'res'=>$response]);
 
 
     }
