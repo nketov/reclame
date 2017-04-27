@@ -67,7 +67,7 @@ $config = [
                     'route' => '/date/index',
                     'suffix' => ''
                 ],
-                '<action:(charts)>' => 'date/<action>',
+                '<action:(charts|all-rate)>' => 'date/<action>',
                 'bet/<id:\d+>' => 'bet/campaign',
                 'bet/group/<chId:\d+>/<id:\d+>' => 'bet/group',
                 '<action:(campaign)>' => 'bet/<action>',

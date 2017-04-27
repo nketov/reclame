@@ -68,6 +68,12 @@ class DateController extends Controller
     public function actionIndex()
 
     {
+              return $this->render('index');
+    }
+
+ public function actionAllRate()
+
+    {
 
 
         $months = $this->getMonths();
@@ -76,7 +82,7 @@ class DateController extends Controller
         $monthResult = $this->getMonthResult($month);
 
 
-        return $this->render('index', [
+        return $this->render('all-rate', [
             'monthResult' => $monthResult,
             'months' => $months,
             'month' => $month,
