@@ -42,7 +42,7 @@ AppAsset::register($this);
 
             ['label' => 'Графики по месяцам', 'url' => ['/charts']],
             ['label' => 'Общие показатели', 'url' => ['/all-rate']],
-         //  ['label' => 'Ставки', 'url' => ['/bet/index']],
+           ['label' => 'Ставки', 'url' => ['/bet/index']],
             
             Yii::$app->user->isGuest ? ('<li></li>') :
                 ['label' => 'Внести данные', 'url' => ['/date/create']],

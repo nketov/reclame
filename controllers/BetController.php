@@ -159,9 +159,8 @@ class BetController extends Controller
                         0 => 'CampaignId',
                         1 => 'Id',
                         2 => 'Keyword',
-                        3 => 'Bid',
-                        4=>'AdGroupId'
-
+                        3 =>'AdGroupId',
+                        4 => 'Bid',
 
                     ]
                 ]
