@@ -36,7 +36,7 @@ class DateController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'charts'],
+                        'actions' => ['index', 'charts','all-rates'],
                         'roles' => ['?'],
                     ],
                     [
@@ -75,7 +75,7 @@ class DateController extends Controller
 
     }
 
-    public function actionAllRate()
+    public function actionAllRates()
 
     {
 
@@ -86,7 +86,7 @@ class DateController extends Controller
         $monthResult = $this->getMonthResult($month);
 
 
-        return $this->render('all-rate', [
+        return $this->render('all-rates', [
             'monthResult' => $monthResult,
             'months' => $months,
             'month' => $month,

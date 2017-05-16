@@ -129,7 +129,7 @@ class BetController extends Controller
         $response = json_decode($request->send()->content, true);
 
 
-        return $this->render('campaign', ['chId'=>$id, 'res' => $response['result']['AdGroups'], 'rec' => $request]);
+        return $this->render('campaign', ['chId'=>$id, 'res' => $response['result']['AdGroups']]);
 
 
     }
@@ -156,11 +156,11 @@ class BetController extends Controller
                           'States' => ['ON']
                     ],
                     'FieldNames' => [
-                        0 => 'CampaignId',
-                        1 => 'Id',
-                        2 => 'Keyword',
-                        3 =>'AdGroupId',
-                        4 => 'Bid',
+                        0 => 'Id',
+                        1 => 'Keyword',
+                        2 => 'Bid',
+                        3 => 'Productivity',
+                        4 => 'StatisticsSearch',
 
                     ]
                 ]
@@ -171,18 +171,53 @@ class BetController extends Controller
 
         $response = json_decode($request->send()->content, true);
 
+for( $i=0; $i < sizeof($response['result']['Keywords']);$i++ )
+{
+    $response['result']['Keywords'][$i]['Bids'] = self::getBids($response['result']['Keywords'][$i]['Id']);
+
+}
 
 
 
 
-        return $this->render('group', ['chId'=>$chId,'groupId'=>$id,'res'=>$response]);
+        return $this->render('group', ['chId'=>$chId,'groupId'=>$id,'res'=>$response['result']['Keywords']]);
 
 
     }
 
 
 
+    private static function getBids($kwId)
+    {
+        $client = new Client(['baseUrl' => 'https://api.direct.yandex.com/json/v5/bids', 'requestConfig' => [
+            'format' => Client::FORMAT_JSON
+        ]]);
 
+        $request = $client->createRequest()
+            ->setHeaders(['Accept-Language' => 'ru'])
+            ->addHeaders(['content-type' => 'application/json; charset=utf-8'])
+            ->addHeaders(['Authorization' => 'Bearer AQAAAAAT8YTVAAP95Qg9u07pFU-Arhq94r93oik'])
+            ->addHeaders(['Client-Login' => 'elama-15968051@yandex.ru'])
+            ->setData(['method' => 'get',
+                'params' => [
+                    'SelectionCriteria' => [
+                        'KeywordIds' => [$kwId],
+                    ],
+                    'FieldNames' => [
+                        0 => 'AuctionBids',
+                        1 => 'CurrentSearchPrice',
+                    ]
+                ]
+
+            ]);
+
+        $response = json_decode($request->send()->content, true);
+
+        return $response['result']['Bids'][0];
+
+
+
+    }
 
 
 

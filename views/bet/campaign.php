@@ -12,7 +12,6 @@ $this->params['breadcrumbs'][] =$this->title;
 
     <h1><?= Html::encode($this->title. ', список групп:') ?></h1>
 
-    <p><?= $id ?></p>
 
 <div class="row">
     <div class="date-index col-lg-12">
