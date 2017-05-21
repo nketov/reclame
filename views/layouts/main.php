@@ -42,8 +42,10 @@ AppAsset::register($this);
 
             ['label' => 'Графики по месяцам', 'url' => ['/charts']],
             ['label' => 'Общие показатели', 'url' => ['/all-rates']],
-           ['label' => 'Ставки', 'url' => ['/bet/index']],
-            
+            ['label' => 'Сделки', 'url' => ['/contract']],
+            //['label' => 'Ставки', 'url' => ['/bet/index']],
+
+
             Yii::$app->user->isGuest ? ('<li></li>') :
                 ['label' => 'Внести данные', 'url' => ['/date/create']],
 
@@ -78,7 +80,8 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-<!--                <p class="pull-left"> Краматорск <img src="/images/ukraine.png"> --><?// //= date('Y') ?><!--</p>-->
+        <!--                <p class="pull-left"> Краматорск <img src="/images/ukraine.png"> -->
+        <? // //= date('Y') ?><!--</p>-->
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>

@@ -33,7 +33,7 @@ class Date extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'direct_rate', 'direct_click', 'direct_order', 'adwords_rate', 'adwords_click', 'adwords_order'], 'required', 'message' =>''],
+            [['date', 'direct_rate', 'direct_click', 'direct_order', 'adwords_rate', 'adwords_click', 'adwords_order'], 'required', 'message' => ''],
             [['date'], 'safe'],
             [['direct_rate', 'adwords_rate'], 'number'],
             [['direct_click', 'direct_order', 'adwords_click', 'adwords_order'], 'integer'],
@@ -58,18 +58,18 @@ class Date extends \yii\db\ActiveRecord
         ];
     }
 
-    public function beforeSave($options=array())
+    public function beforeSave($options = array())
     {
 
         $this->date = date('Y-m-d', strtotime($this->date));
 
-        $model=Date::find() ->where(["date" => $this->date])->one();
+        $model = Date::find()->where(["date" => $this->date])->one();
 
-        if($model){
-            $this->id =$model->id;
+        if ($model) {
+            $this->id = $model->id;
             $model->delete();
-        }             
-        
+        }
+
         return true;
     }
 

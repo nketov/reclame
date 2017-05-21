@@ -92,8 +92,6 @@ class BetController extends Controller
     }
 
 
-
-
     public function actionCampaign($id)
     {
 
@@ -129,13 +127,13 @@ class BetController extends Controller
         $response = json_decode($request->send()->content, true);
 
 
-        return $this->render('campaign', ['chId'=>$id, 'res' => $response['result']['AdGroups']]);
+        return $this->render('campaign', ['chId' => $id, 'res' => $response['result']['AdGroups']]);
 
 
     }
 
 
- public function actionGroup($chId,$id)
+    public function actionGroup($chId, $id)
     {
 
 
@@ -153,7 +151,7 @@ class BetController extends Controller
                 'params' => [
                     'SelectionCriteria' => [
                         'AdGroupIds' => [$id],
-                          'States' => ['ON']
+                        'States' => ['ON']
                     ],
                     'FieldNames' => [
                         0 => 'Id',
@@ -171,20 +169,16 @@ class BetController extends Controller
 
         $response = json_decode($request->send()->content, true);
 
-for( $i=0; $i < sizeof($response['result']['Keywords']);$i++ )
-{
-    $response['result']['Keywords'][$i]['Bids'] = self::getBids($response['result']['Keywords'][$i]['Id']);
+        for ($i = 0; $i < sizeof($response['result']['Keywords']); $i++) {
+            $response['result']['Keywords'][$i]['Bids'] = self::getBids($response['result']['Keywords'][$i]['Id']);
 
-}
-
+        }
 
 
-
-        return $this->render('group', ['chId'=>$chId,'groupId'=>$id,'res'=>$response['result']['Keywords']]);
+        return $this->render('group', ['chId' => $chId, 'groupId' => $id, 'res' => $response['result']['Keywords']]);
 
 
     }
-
 
 
     private static function getBids($kwId)
@@ -216,11 +210,7 @@ for( $i=0; $i < sizeof($response['result']['Keywords']);$i++ )
         return $response['result']['Bids'][0];
 
 
-
     }
-
-
-
 
 
 }

@@ -67,11 +67,10 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
 
-    public  function isAdmin()
+    public function isAdmin()
     {
         return $this->username === 'admin';
     }
-
 
 
 //  User Identity
@@ -83,46 +82,44 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
 
-
-public static function findIdentityByAccessToken($token, $type = null)
-{
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
 //        return static::findOne(['access_token' => $token]);
-}
+    }
 
 
-public static function findByUsername($username)
-{
-    return static::findOne(['username' => $username] );
-}
+    public static function findByUsername($username)
+    {
+        return static::findOne(['username' => $username]);
+    }
 
 
-public function getId()
-{
-    return $this->id;
-}
+    public function getId()
+    {
+        return $this->id;
+    }
 
 
-public function getAuthKey()
-{
-    return $this->auth_key;
-}
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
 
-public function validateAuthKey($authKey)
-{
-    return $this->auth_key === $authKey;
-}
-
-
-
-public function validatePassword($password)
-{
-    return Yii::$app->security->validatePassword($password, $this->password);
-}
+    public function validateAuthKey($authKey)
+    {
+        return $this->auth_key === $authKey;
+    }
 
 
-public function generateAuthKey()
-{
-    $this->auth_key = Yii::$app->security->generateRandomString();
-}
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->password);
+    }
+
+
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
 
 }

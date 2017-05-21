@@ -113,7 +113,7 @@ Html::endForm() ?>
                             $name = 'total_CPL';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' =>  'rgba(155,155,155, 1)'
+                        'color' => 'rgba(155,155,155, 1)'
                     ],
                     [
                         'type' => 'spline',
@@ -132,7 +132,7 @@ Html::endForm() ?>
                             $name = 'direct_CPL';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' =>  ' rgba(255,217,102,1)'
+                        'color' => ' rgba(255,217,102,1)'
                     ],
                 ],
             ]

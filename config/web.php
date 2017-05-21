@@ -15,14 +15,14 @@ $config = [
     'sourceLanguage' => 'ru-RU',
     'components' => [
         'direct' => [
-            'class'         => 'g1k\direct\DirectApi',
-            'clientId'      => 'c54147a7bbe9450dabbdff4bd0015c8f',
-            'clientSecret'  => 'a311841040134edaa6179c6dfaf8464c',
-            'useSandbox'    => false, # использовать ли песочницу. по умолчанию false — использует боевое API
-            'locale'        => 'ru', # на каком языке отдавать ответы. Если не указан, то используется язык приложения
-            'responseType'  => 'code', # Тип ответа от яндекса при получении токена (code, token). Если не указан, то используется code.
+            'class' => 'g1k\direct\DirectApi',
+            'clientId' => 'c54147a7bbe9450dabbdff4bd0015c8f',
+            'clientSecret' => 'a311841040134edaa6179c6dfaf8464c',
+            'useSandbox' => false, # использовать ли песочницу. по умолчанию false — использует боевое API
+            'locale' => 'ru', # на каком языке отдавать ответы. Если не указан, то используется язык приложения
+            'responseType' => 'code', # Тип ответа от яндекса при получении токена (code, token). Если не указан, то используется code.
         ],
-      
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 's26VH4sZHFOQprmTwQBMBU9VGNVJXdwd',
@@ -67,7 +67,7 @@ $config = [
                     'route' => '/date/index',
                     'suffix' => ''
                 ],
-                '<action:(charts|all-rates)>' => 'date/<action>',
+                '<action:(charts|all-rates|contract)>' => 'date/<action>',
                 'bet/<id:\d+>' => 'bet/campaign',
                 'bet/group/<chId:\d+>/<id:\d+>' => 'bet/group',
                 '<action:(campaign)>' => 'bet/<action>',

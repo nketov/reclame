@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Contract;
 use app\models\MonthResult;
 use app\models\Result;
 use Yii;
@@ -36,7 +37,7 @@ class DateController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'charts','all-rates'],
+                        'actions' => ['index', 'charts', 'all-rates'],
                         'roles' => ['?'],
                     ],
                     [
@@ -74,6 +75,19 @@ class DateController extends Controller
 
 
     }
+
+
+    public function actionContract()
+
+    {
+
+        return $this->render('contract', [
+            'contracts' => $this->getContractMonthes()
+        ]);
+
+
+    }
+
 
     public function actionAllRates()
 
@@ -372,4 +386,65 @@ class DateController extends Controller
         return $monthResult;
 
     }
+
+
+    private
+    function getContracts($day)
+    {
+
+        $month_array = array("01" => "января", "02" => "февраля", "03" => "мара", "04" => "апреля", "05" => "мая", "06" => "июня", "07" => "июля", "08" => "авгуса", "09" => "сентября", "10" => "октября", "11" => "ноября", "12" => "декабря");
+        $m['количество'] = 0;
+        $m['сумма'] = 0;
+        $m['сделки'] = '<br>';
+
+        $first = mktime(0, 0, 0, date('m', $day), 1, date("Y", $day));
+        $last = mktime(0, 0, 0, date('m', $day) + 1, 0, date("Y", $day));
+
+        while ($first <= $last) {
+
+            $d = Contract::find()->
+            where(['date' => date('Y-m-d', $first)])
+                ->all();
+
+            foreach ($d as $dd) {
+                $m['количество']++;
+                $m['сумма'] += $dd->summ;
+                $m['сделки'].= date('d',strtotime($dd->date))." ".$month_array[date('m', strtotime($dd->date))] ." : ". ($dd->summ/100).' ₽<br>';
+            }
+
+            $first += 86400;
+        }
+
+        return $m;
+
+
+    }
+
+
+    private
+    function getContractMonthes()
+    {
+
+        $month_array = array("01" => "Январь", "02" => "Февраль", "03" => "Март", "04" => "Апрель", "05" => "Май", "06" => "Июнь", "07" => "Июль", "08" => "Август", "09" => "Сентябрь", "10" => "Октябрь", "11" => "Ноябрь", "12" => "Декабрь");
+
+
+        $contracts = Contract::find()
+            ->orderBy('date')
+            ->all();
+        $start = strtotime($contracts[0]->date);
+        $now = mktime(0, 0, 0, date('m'), date("d"), date("Y"));
+        $months = [];
+        while ($start < $now) {
+            $name = $month_array[date('m', $start)] . " " . date('Y', $start);
+            $months[$name] = $this->getContracts($start);
+            $start = mktime(0, 0, 0, date('m', $start) + 1, 1, date("Y", $start));
+        }
+
+
+        return $months;
+
+
+    }
+
+
 }

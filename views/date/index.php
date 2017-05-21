@@ -12,6 +12,8 @@ $this->title = 'Показатели рекламы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <h1 style="display: inline"><?= Html::encode($this->title) ?></h1>
+<br>
+<br>
 
 <div class="row">
     <div class="date-index col-lg-12">
@@ -42,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             $name = 'total_rate';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => 'rgba(0,0,0, 1)'
+                        'color' => 'rgba(250,50,50, 1)'
                     ],
 //                    [
 //                        'type' => 'spline',
@@ -102,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             $name = 'total_CPL';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' =>  'rgba(0,0,0, 1)'
+                        'color' => 'rgba(250,250,50, 1)'
                     ],
 //                    [
 //                        'type' => 'spline',
@@ -162,7 +164,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             $name = 'total_order';
                             return (float)$day->{$name};
                         }, $monthResult->days)),
-                        'color' => 'rgba(0,0,0, 1)'
+                        'color' => 'rgba(50,250,50, 1)'
                     ],
 //                    [
 //                        'type' => 'spline',

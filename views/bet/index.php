@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <!--        --><?php //d($res) ?>
         <?php foreach ($res as $champ) { ?>
 
-            <a href=<?php echo Url::to(['bet/campaign', 'id' => $champ['Id']]);?> type="button" class="btn btn-default"
+            <a href=<?php echo Url::to(['bet/campaign', 'id' => $champ['Id']]); ?> type="button" class="btn btn-default"
                style="width: 750px;padding: 2px; overflow: hidden; margin: 5px;text-align: left">
                 <span style="color: #0000CC"><?php echo $champ['Id'] ?></span> <span
                     style="color:black"><?php echo $champ['Name'] . ' ' ?></span>

@@ -29,14 +29,9 @@ class MonthResult extends Model
     public $average_order;
     public $average_CPL;
     public $average_click;
-    
+
     public $average_direct_CPL;
     public $average_adwords_CPL;
-
-
-
-    
-    
 
 
 }

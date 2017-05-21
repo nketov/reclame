@@ -110,7 +110,11 @@ use yii\widgets\ActiveForm;
 
         <div class="col-lg-4">
             <div class="panel direct">
-                <div class="panel-heading">Директ<button type="button"  class="get-direct btn btn-info" style="padding: 5px; position: relative; left:120px; " > <span class=" glyphicon glyphicon-globe"> </span></button></div>
+                <div class="panel-heading">Директ
+                    <button type="button" class="get-direct btn btn-info"
+                            style="padding: 5px; position: relative; left:120px; "><span
+                            class=" glyphicon glyphicon-globe"> </span></button>
+                </div>
                 <div class="panel-body">
                     <?= $form->field($model, 'direct_rate')->textInput(['maxlength' => true, 'class' => 'float  form-control', 'autocomplete' => 'off']) ?>
                     <?= $form->field($model, 'direct_click')->textInput(['class' => 'digital-input form-control', 'autocomplete' => 'off']) ?>
